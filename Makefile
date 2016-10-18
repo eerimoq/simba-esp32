@@ -2,4 +2,4 @@ PHONY: all
 
 all:
 	+make -C app all
-	cp $$(find app -name "*.a" | grep -v bootloader | xargs) lib
+	cp $$(find app -name "*.a" | grep -v bootloader | grep -v main | xargs) lib
