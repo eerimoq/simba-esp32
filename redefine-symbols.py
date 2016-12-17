@@ -7,24 +7,33 @@ import re
 import StringIO
 
 ignored_symbols = [
-    'wifi_station_get_reconnect_policy',
-    'abort'
+    'wifi_station_get_reconnect_policy'
+]
+
+ignored_libraries = [
+    'newlib',
+    'c',
+    'c_nano',
+    'g',
+    'm',
+    'lwip'
 ]
 
 def find_symbols_in_libraries():
     """
 
     """
-    
+
     libraries = glob.glob("lib/*.a")
-    libraries += glob.glob("esp-idf/components/esp32/lib/*.a")
-    libraries += glob.glob("esp-idf/components/esp32/*.a")
+
+    ignored_library_paths = ['lib/lib' + name + '.a' for name in ignored_libraries]
+    libraries = list(set(libraries) - set(ignored_library_paths))
 
     command = ["xtensa-esp32-elf-readelf"]
     command += ["-s"]
     command += ["--wide"]
     command += libraries
-    
+
     print ' '.join(command)
     output = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
 
@@ -60,12 +69,10 @@ def redefine_symbols():
 
     files = []
     files += glob.glob("lib/*.a")
-    files += glob.glob("esp-idf/components/esp32/lib/*.a")
-    files += glob.glob("esp-idf/components/esp32/*.a")
-    files += glob.glob("esp-idf/components/*.h")
-    files += glob.glob("esp-idf/components/*/*.h")
-    files += glob.glob("esp-idf/components/*/*/*.h")
-    files += glob.glob("esp-idf/components/*/*/*/*.h")
+    files += glob.glob("inc/*.h")
+    files += glob.glob("inc/*/*.h")
+    files += glob.glob("inc/*/*/*.h")
+    files += glob.glob("inc/*/*/*/*.h")
 
     command = ["../../bin/redefine-symbols.py"]
     command += ["--toolchain-prefix", "xtensa-esp32-elf-"]
@@ -73,7 +80,7 @@ def redefine_symbols():
     command += files
 
     print ' '.join(command)
-    subprocess.check_call(command) 
+    subprocess.check_call(command)
 
 
 def main(args):

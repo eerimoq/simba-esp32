@@ -3,3 +3,4 @@
 *.ko
 *.obj
 *.elf
+redefine-symbols.txt
