@@ -43,7 +43,7 @@ This uses the TIMERG0 WDT.
   *         task watchdog is enabled in menuconfig.
   *
   */
-void esp_esp_task_wdt_init();
+void esp_task_wdt_init();
 
 /**
   * @brief  Feed the watchdog. After the first feeding session, the watchdog will expect the calling
@@ -51,14 +51,14 @@ void esp_esp_task_wdt_init();
   *
   */
 
-void esp_esp_task_wdt_feed();
+void esp_task_wdt_feed();
 
 
 /**
   * @brief  Delete the watchdog for the current task.
   *
   */
-void esp_esp_task_wdt_delete();
+void esp_task_wdt_delete();
 
 /**
   * @}
