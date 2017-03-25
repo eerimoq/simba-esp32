@@ -34,12 +34,12 @@ driver from the board-specific "display.h" header.
 
 
 #define SPLC780D_4BIT_INST_INIT1             0xFF /* First command in 
-                                                     esp_init sequence */
+                                                     init sequence */
 #define SPLC780D_4BIT_INST_INIT2             0x30 /* Second command in 
-                                                     esp_init sequence, 
+                                                     init sequence, 
                                                      issued 3 times */
 #define SPLC780D_4BIT_INST_INIT3             0x20 /* Third and last command 
-                                                     in esp_init sequence */
+                                                     in init sequence */
 #define SPLC780D_4BIT_INST_CLEAR             0x01 /* clear (blank) display) */
 #define SPLC780D_4BIT_INST_SET_MODE          0x28 /* Set LCD mode. Supported
                                                      setting is 4 bit data 

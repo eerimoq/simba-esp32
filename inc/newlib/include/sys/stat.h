@@ -146,7 +146,7 @@ struct	stat
 int	_EXFUN(chmod,( const char *__path, mode_t __mode ));
 int     _EXFUN(fchmod,(int __fd, mode_t __mode));
 int	_EXFUN(fstat,( int __fd, struct stat *__sbuf ));
-int	_EXFUN(mkdir,( const char *_path, mode_t __mode ));
+int	_EXFUN(esp_mkdir,( const char *_path, mode_t __mode ));
 int	_EXFUN(mkfifo,( const char *__path, mode_t __mode ));
 int	_EXFUN(stat,( const char *__restrict __path, struct stat *__restrict __sbuf ));
 mode_t	_EXFUN(umask,( mode_t __mask ));

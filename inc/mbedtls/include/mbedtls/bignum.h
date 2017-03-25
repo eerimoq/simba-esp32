@@ -45,7 +45,7 @@
 #define MBEDTLS_ERR_MPI_NOT_ACCEPTABLE                    -0x000E  /**< The input arguments are not acceptable. */
 #define MBEDTLS_ERR_MPI_ALLOC_FAILED                      -0x0010  /**< Memory allocation failed. */
 
-#define MBEDTLS_MPI_CHK(f) do { if( ( ret = f ) != 0 ) goto esp_cleanup; } while( 0 )
+#define MBEDTLS_MPI_CHK(f) do { if( ( ret = f ) != 0 ) goto cleanup; } while( 0 )
 
 /*
  * Maximum size MPIs are allowed to grow to in number of limbs.
@@ -79,8 +79,8 @@
 #define MBEDTLS_MPI_MAX_BITS                              ( 8 * MBEDTLS_MPI_MAX_SIZE )    /**< Maximum number of bits for usable MPIs. */
 
 /*
- * When reading from files with mbedtls_mpi_read_file() and writing to files with
- * mbedtls_mpi_write_file() the buffer should have space
+ * When reading from files with esp_mbedtls_mpi_read_file() and writing to files with
+ * esp_mbedtls_mpi_write_file() the buffer should have space
  * for a (short) label, the MPI (in the provided radix), the newline
  * characters and the '\0'.
  *
@@ -352,7 +352,7 @@ int esp_mbedtls_mpi_write_string( const mbedtls_mpi *X, int radix,
  *                 the file read buffer is too small or a
  *                 MBEDTLS_ERR_MPI_XXX esp_error code
  */
-int mbedtls_mpi_read_file( mbedtls_mpi *X, int radix, FILE *fin );
+int esp_mbedtls_mpi_read_file( mbedtls_mpi *X, int radix, FILE *fin );
 
 /**
  * \brief          Write X into an opened file, or stdout if fout is NULL
@@ -366,7 +366,7 @@ int mbedtls_mpi_read_file( mbedtls_mpi *X, int radix, FILE *fin );
  *
  * \note           Set fout == NULL to print X on the console.
  */
-int mbedtls_mpi_write_file( const char *p, const mbedtls_mpi *X, int radix, FILE *fout );
+int esp_mbedtls_mpi_write_file( const char *p, const mbedtls_mpi *X, int radix, FILE *fout );
 #endif /* MBEDTLS_FS_IO */
 
 /**

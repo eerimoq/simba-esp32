@@ -65,7 +65,7 @@ typedef struct
  *                  mutex) in a state such that mutex_lock() will fail when
  *                  called with this argument.
  *
- * \param mutex_init    the esp_init function implementation
+ * \param mutex_init    the init function implementation
  * \param mutex_free    the free function implementation
  * \param mutex_lock    the lock function implementation
  * \param mutex_unlock  the unlock function implementation

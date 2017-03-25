@@ -40,7 +40,7 @@ extern "C" {
 //-----------------------------------------------------------------------------
 //  The XOS system log is an array of fixed size entries. The size of the log
 //  is determined by the application, and memory for the log must be provided
-//  at esp_init time. Every time the log function is called, an entry is made in
+//  at init time. Every time the log function is called, an entry is made in
 //  the log and the next pointer advanced. When the log is full, it will wrap
 //  around and start overwriting the oldest entries.
 //  Logging can be done from C/C++ code as well as assembly code, and at any

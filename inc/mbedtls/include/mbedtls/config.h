@@ -385,12 +385,12 @@
  * \def MBEDTLS_CIPHER_PADDING_PKCS7
  *
  * MBEDTLS_CIPHER_PADDING_XXX: Uncomment or comment macros to add support for
- * specific esp_padding modes in the cipher layer with cipher modes that support
- * esp_padding (e.g. CBC)
+ * specific padding modes in the cipher layer with cipher modes that support
+ * padding (e.g. CBC)
  *
- * If you disable all esp_padding modes, only full blocks can be used with CBC.
+ * If you disable all padding modes, only full blocks can be used with CBC.
  *
- * Enable esp_padding modes in the cipher layer.
+ * Enable padding modes in the cipher layer.
  */
 #define MBEDTLS_CIPHER_PADDING_PKCS7
 #define MBEDTLS_CIPHER_PADDING_ONE_AND_ZEROS
@@ -982,7 +982,7 @@
  *
  * This allows peers that both support it to use a more robust protection for
  * ciphersuites using CBC, providing deep resistance against timing attacks
- * on the esp_padding or underlying cipher.
+ * on the padding or underlying cipher.
  *
  * This only affects CBC ciphersuites, and is useless if none is defined.
  *

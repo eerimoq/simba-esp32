@@ -157,7 +157,7 @@ typedef enum {
     /*  [operation]
      *      The epilog call to the vendor module so that it can perform any
      *      vendor-specific processes (e.g. send a HCI_RESET to BT Controller)
-     *      before the caller calls for esp_cleanup().
+     *      before the caller calls for cleanup().
      *  [input param]
      *      None.
      *  [return]
@@ -336,13 +336,13 @@ typedef struct {
      * Caller will open the interface and pass in the callback routines
      * to the implemenation of this interface.
      */
-    int   (*esp_init)(const bt_vendor_callbacks_t *p_cb, unsigned char *local_bdaddr);
+    int   (*init)(const bt_vendor_callbacks_t *p_cb, unsigned char *local_bdaddr);
 
     /**  Vendor specific operations */
     int (*op)(bt_vendor_opcode_t opcode, void *param);
 
     /** Closes the interface */
-    void  (*esp_cleanup)(void);
+    void  (*cleanup)(void);
 } bt_vendor_interface_t;
 
 

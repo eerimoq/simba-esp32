@@ -62,6 +62,7 @@ typedef enum {
   ESP_ERASE_FLASH = 0xD0,
   ESP_ERASE_REGION = 0xD1,
   ESP_READ_FLASH = 0xD2,
+  ESP_RUN_USER_CODE = 0xD3,
 } esp_command;
 
 /* Command request header */
@@ -76,7 +77,7 @@ typedef struct __attribute__((packed)) {
 /* Command response header */
 typedef struct __attribute__((packed)) {
   uint8_t resp; /* should be '1' */
-  uint8_t op_ret; /* Should match 'op' */
+  uint8_t op_ret; /* Should esp_match 'op' */
   uint16_t len_ret; /* Length of result data (can be ignored as SLIP framing helps) */
   int32_t value; /* 32-bit response used by some commands */
 } esp_command_response_t;

@@ -109,7 +109,7 @@ void esp_esp_sha_block(esp_sha_type sha_type, const void *data_block, bool is_fi
  * function. Do not call esp_esp_sha_lock_memory_block() beforehand, this
  * is done inside the function.
  *
- * If the SHA suffix esp_padding block has been executed already, the
+ * If the SHA suffix padding block has been executed already, the
  * value that is read is the SHA digest (in big endian
  * format). Otherwise, the value that is read is an interim SHA state.
  *

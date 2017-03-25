@@ -30,7 +30,7 @@
  *  Vector Enumerations.
  */
 
-/*  These must match the LX2.0 and later traceport spec:  */
+/*  These must esp_match the LX2.0 and later traceport spec:  */
 #define VEC_NO_VECTOR	0
 #define VEC_FIRST	VEC_RESET	/* first valid vector */
 #define VEC_RESET	1

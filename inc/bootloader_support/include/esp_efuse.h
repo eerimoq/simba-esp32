@@ -36,17 +36,17 @@ extern "C" {
  * efuse values from multiple tasks then this is caller's
  * responsibility to serialise.
  *
- * After burning new efuses, the read registers are updated to match
+ * After burning new efuses, the read registers are updated to esp_match
  * the new efuse values.
  */
-void esp_efuse_burn_new_values(void);
+void esp_esp_efuse_burn_new_values(void);
 
 /* @brief Reset efuse write registers
  *
  * Efuse write registers are written to zero, to negate
  * any changes that have been staged here.
  */
-void esp_efuse_reset(void);
+void esp_esp_efuse_reset(void);
 
 #ifdef __cplusplus
 }

@@ -297,8 +297,8 @@ int trax_set_syncper (trax_context *context, int option);
  */ 
 int trax_get_syncper (trax_context *context);
 
-/* Selects stop trigger via PC match. Specifies the address or
- * address range to match against program counter. Trace stops when the
+/* Selects stop trigger via PC esp_match. Specifies the address or
+ * address range to esp_match against program counter. Trace stops when the
  * processor executes an instruction matching the specified address
  * or range. 
  *
@@ -312,7 +312,7 @@ int trax_get_syncper (trax_context *context);
  * 		  be activated
  * flags	: If non-zero, this inverts the range. i.e. trace stops
  * 		  when the processor executes an instruction that does not
- * 		  match the specified address or range
+ * 		  esp_match the specified address or range
  *
  * returns      : 0 if successful, -1 if unsuccessful, -2 if incorrect
  * 		  arguments (unaligned)
@@ -325,7 +325,7 @@ int trax_get_syncper (trax_context *context);
 int trax_set_pcstop (trax_context *context, int index, unsigned long startaddress, 
 		      unsigned long endaddress, int flags);
 
-/* Shows the stop trigger via PC match
+/* Shows the stop trigger via PC esp_match
  *
  * context	: pointer to structure which contains information about the 
  * 		  current TRAX session

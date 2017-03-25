@@ -99,7 +99,7 @@ extern "C" {
 
 #endif	/* !_POSIX_SOURCE */
 
-/* XXX close on exec request; must match UF_EXCLOSE in user.h */
+/* XXX close on exec request; must esp_match UF_EXCLOSE in user.h */
 #define	FD_CLOEXEC	1	/* posix */
 
 /* fcntl(2) requests */

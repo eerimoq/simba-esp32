@@ -49,10 +49,10 @@ do {                                                 \
 #define RTOS_SUPPORT
 #ifdef RTOS_SUPPORT
 #define pthread_mutex_t               osi_mutex_t
-#define pthread_mutex_init(mutex, a)  esp_osi_mutex_new(mutex)
-#define pthread_mutex_destroy(mutex)  esp_osi_mutex_free(mutex)
-#define pthread_mutex_lock            esp_osi_mutex_lock
-#define pthread_mutex_unlock          esp_osi_mutex_unlock
+#define pthread_mutex_init(mutex, a)  osi_mutex_new(mutex)
+#define pthread_mutex_destroy(mutex)  osi_mutex_free(mutex)
+#define pthread_mutex_lock            osi_mutex_lock
+#define pthread_mutex_unlock          osi_mutex_unlock
 #else
 #define pthread_mutex_t               uint8_t
 #define pthread_mutex_init(x1, x2)

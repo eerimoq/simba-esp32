@@ -94,7 +94,7 @@ struct nghttp2_session_callbacks {
   nghttp2_on_header_callback2 on_header_callback2;
   /**
    * Callback function invoked when the library asks application how
-   * many esp_padding bytes are required for the transmission of the given
+   * many padding bytes are required for the transmission of the given
    * frame.
    */
   nghttp2_select_padding_callback select_padding_callback;

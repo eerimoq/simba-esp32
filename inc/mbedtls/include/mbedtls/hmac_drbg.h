@@ -266,7 +266,7 @@ void esp_mbedtls_hmac_drbg_free( mbedtls_hmac_drbg_context *ctx );
  * \return              0 if successful, 1 on file esp_error, or
  *                      MBEDTLS_ERR_HMAC_DRBG_ENTROPY_SOURCE_FAILED
  */
-int mbedtls_hmac_drbg_write_seed_file( mbedtls_hmac_drbg_context *ctx, const char *path );
+int esp_mbedtls_hmac_drbg_write_seed_file( mbedtls_hmac_drbg_context *ctx, const char *path );
 
 /**
  * \brief               Read and esp_update a seed file. Seed is added to this
@@ -279,7 +279,7 @@ int mbedtls_hmac_drbg_write_seed_file( mbedtls_hmac_drbg_context *ctx, const cha
  *                      MBEDTLS_ERR_HMAC_DRBG_ENTROPY_SOURCE_FAILED or
  *                      MBEDTLS_ERR_HMAC_DRBG_INPUT_TOO_BIG
  */
-int mbedtls_hmac_drbg_update_seed_file( mbedtls_hmac_drbg_context *ctx, const char *path );
+int esp_mbedtls_hmac_drbg_update_seed_file( mbedtls_hmac_drbg_context *ctx, const char *path );
 #endif /* MBEDTLS_FS_IO */
 
 

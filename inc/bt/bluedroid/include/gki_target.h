@@ -161,7 +161,7 @@ over HCI data and intentionally kept out of order */
 #endif
 
 /* The size of the buffers in pool 6,
-  BUF_SIZE = max SCO data 255 + sizeof(BT_HDR) = 8 + SCO packet header 3 + esp_padding 2 = 268 */
+  BUF_SIZE = max SCO data 255 + sizeof(BT_HDR) = 8 + SCO packet header 3 + padding 2 = 268 */
 #ifndef GKI_BUF6_SIZE
 #define GKI_BUF6_SIZE               268
 #endif
@@ -236,8 +236,8 @@ over HCI data and intentionally kept out of order */
 #define GKI_NUM_TOTAL_BUF_POOLS     10
 #endif
 
-int esp_gki_init(void);
-void esp_gki_clean_up(void);
+int gki_init(void);
+void gki_clean_up(void);
 
 //void LogMsg (UINT32 trace_set_mask, const char *fmt_str, ...);
 

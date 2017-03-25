@@ -900,7 +900,7 @@ typedef struct {
 typedef struct {
   nghttp2_frame_hd hd;
   /**
-   * The length of the esp_padding in this frame.  This includes PAD_HIGH
+   * The length of the padding in this frame.  This includes PAD_HIGH
    * and PAD_LOW.
    */
   size_t padlen;
@@ -972,7 +972,7 @@ typedef struct {
    */
   nghttp2_frame_hd hd;
   /**
-   * The length of the esp_padding in this frame.  This includes PAD_HIGH
+   * The length of the padding in this frame.  This includes PAD_HIGH
    * and PAD_LOW.
    */
   size_t padlen;
@@ -1073,7 +1073,7 @@ typedef struct {
    */
   nghttp2_frame_hd hd;
   /**
-   * The length of the esp_padding in this frame.  This includes PAD_HIGH
+   * The length of the padding in this frame.  This includes PAD_HIGH
    * and PAD_LOW.
    */
   size_t padlen;
@@ -1283,7 +1283,7 @@ typedef ssize_t (*nghttp2_send_callback)(nghttp2_session *session,
  *
  * The |frame| is a DATA frame to send.  The |framehd| is the
  * serialized frame header (9 bytes). The |length| is the length of
- * application data to send (this does not include esp_padding).  The
+ * application data to send (this does not include padding).  The
  * |source| is the same pointer passed to
  * :type:`nghttp2_data_source_read_callback`.
  *
@@ -1291,7 +1291,7 @@ typedef ssize_t (*nghttp2_send_callback)(nghttp2_session *session,
  * bytes.  If ``frame->data.padlen > 0``, send 1 byte of value
  * ``frame->data.padlen - 1``.  Then send exactly |length| bytes of
  * application data.  Finally, if ``frame->data.padlen > 1``, send
- * ``frame->data.padlen - 1`` bytes of zero as esp_padding.
+ * ``frame->data.padlen - 1`` bytes of zero as padding.
  *
  * The application has to send complete DATA frame in this callback.
  * If all data were written successfully, return 0.
@@ -1725,12 +1725,12 @@ typedef int (*nghttp2_on_header_callback2)(nghttp2_session *session,
  * @functypedef
  *
  * Callback function invoked when the library asks application how
- * many esp_padding bytes are required for the transmission of the
+ * many padding bytes are required for the transmission of the
  * |frame|.  The application must choose the total length of payload
  * including padded bytes in range [frame->hd.length, max_payloadlen],
  * inclusive.  Choosing number not in this range will be treated as
  * :enum:`NGHTTP2_ERR_CALLBACK_FAILURE`.  Returning
- * ``frame->hd.length`` means no esp_padding is added.  Returning
+ * ``frame->hd.length`` means no padding is added.  Returning
  * :enum:`NGHTTP2_ERR_CALLBACK_FAILURE` will make
  * `esp_nghttp2_session_send()` and `esp_nghttp2_session_mem_send()` functions
  * immediately return :enum:`NGHTTP2_ERR_CALLBACK_FAILURE`.
@@ -2083,7 +2083,7 @@ NGHTTP2_EXTERN void esp_nghttp2_session_callbacks_set_on_header_callback2(
  * @function
  *
  * Sets callback function invoked when the library asks application
- * how many esp_padding bytes are required for the transmission of the
+ * how many padding bytes are required for the transmission of the
  * given frame.
  */
 NGHTTP2_EXTERN void esp_nghttp2_session_callbacks_set_select_padding_callback(
@@ -2336,7 +2336,7 @@ esp_nghttp2_option_set_peer_max_concurrent_streams(nghttp2_option *option,
  * means that applications should deal with MAGIC by themselves.
  *
  * If this option is not used or used with zero value, if MAGIC does
- * not match :macro:`NGHTTP2_CLIENT_MAGIC`, `esp_nghttp2_session_recv()`
+ * not esp_match :macro:`NGHTTP2_CLIENT_MAGIC`, `esp_nghttp2_session_recv()`
  * and `esp_nghttp2_session_mem_recv()` will return esp_error
  * :enum:`NGHTTP2_ERR_BAD_CLIENT_MAGIC`, which is fatal esp_error.
  */
@@ -3303,7 +3303,7 @@ esp_nghttp2_session_create_idle_stream(nghttp2_session *session, int32_t stream_
  *   `esp_nghttp2_session_upgrade2()`, because this function lacks the
  *   parameter to tell the library the request method used in the
  *   original HTTP request.  This information is required for client
- *   to validate actual response body length against content-length
+ *   to esp_validate actual response body length against content-length
  *   header field (see `esp_nghttp2_option_set_no_http_messaging()`).  If
  *   HEAD is used in request, the length of response body must be 0
  *   regardless of value included in content-length header field.

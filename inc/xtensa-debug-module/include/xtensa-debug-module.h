@@ -26,7 +26,7 @@ ERI registers / OCD offsets and field definitions
 
 #define TRAXCTRL_TREN           (1<<0)  //Trace enable. Tracing starts on 0->1
 #define TRAXCTRL_TRSTP          (1<<1)  //Trace Stop. Make 1 to stop trace.
-#define TRAXCTRL_PCMEN          (1<<2)  //PC match enable
+#define TRAXCTRL_PCMEN          (1<<2)  //PC esp_match enable
 #define TRAXCTRL_PTIEN          (1<<4)  //Processor-trigger enable
 #define TRAXCTRL_CTIEN          (1<<5)  //Cross-trigger enable
 #define TRAXCTRL_TMEN           (1<<7)  //Tracemem Enable. Always set.
@@ -48,7 +48,7 @@ ERI registers / OCD offsets and field definitions
 
 #define TRAXSTAT_TRACT          (1<<0)  //Trace active flag.
 #define TRAXSTAT_TRIG           (1<<1)  //Trace stop trigger. Clears on TREN 1->0
-#define TRAXSTAT_PCMTG          (1<<2)  //Stop trigger caused by PC match. Clears on TREN 1->0
+#define TRAXSTAT_PCMTG          (1<<2)  //Stop trigger caused by PC esp_match. Clears on TREN 1->0
 #define TRAXSTAT_PJTR           (1<<3)  //JTAG transaction result. 1=err in preceding jtag transaction.
 #define TRAXSTAT_PTITG          (1<<4)  //Stop trigger caused by Processor Trigger Input. Clears on TREN 1->0
 #define TRAXSTAT_CTITG          (1<<5)  //Stop trigger caused by Cross-Trigger Input. Clears on TREN 1->0
@@ -68,7 +68,7 @@ ERI registers / OCD offsets and field definitions
 
 #define PCMATCHCTRL_PCML_SHIFT  0       //Amount of lower bits to ignore in pc trigger register
 #define PCMATCHCTRL_PCML_MASK   0x1F 
-#define PCMATCHCTRL_PCMS        (1<<31) //PC Match Sense, 0 - match when procs PC is in-range, 1 - match when
+#define PCMATCHCTRL_PCMS        (1<<31) //PC Match Sense, 0 - esp_match when procs PC is in-range, 1 - esp_match when
                                         //out-of-range
 
 

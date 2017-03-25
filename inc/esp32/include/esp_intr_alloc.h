@@ -36,7 +36,7 @@ extern "C" {
  *
  */
 
-//Keep the LEVELx values as they are here; they match up with (1<<level)
+//Keep the LEVELx values as they are here; they esp_match up with (1<<level)
 #define ESP_INTR_FLAG_LEVEL1		(1<<1)	///< Accept a Level 1 interrupt vector
 #define ESP_INTR_FLAG_LEVEL2		(1<<2)	///< Accept a Level 2 interrupt vector
 #define ESP_INTR_FLAG_LEVEL3		(1<<3)	///< Accept a Level 3 interrupt vector
@@ -123,6 +123,9 @@ esp_err_t esp_esp_intr_reserve(int intno, int cpu);
  * a handle for the interrupt as well.
  *
  * The interrupt will always be allocated on the core that runs this function.
+ *
+ * If ESP_INTR_FLAG_IRAM flag is used, and handler address is not in IRAM or
+ * RTC_FAST_MEM, then ESP_ERR_INVALID_ARG is returned.
  *
  * @param source The interrupt source. One of the ETS_*_INTR_SOURCE interrupt mux
  *               sources, as defined in soc/soc.h, or one of the internal

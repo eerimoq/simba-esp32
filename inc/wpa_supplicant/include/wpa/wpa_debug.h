@@ -149,7 +149,7 @@ void wpa_hexdump_ascii_key(int level, const char *title, const u8 *buf,
 /**
  * wpa_msg - Conditional printf for default target and ctrl_iface monitors
  * @ctx: Pointer to context data; this is the ctx variable registered
- *	with struct wpa_driver_ops::esp_init()
+ *	with struct wpa_driver_ops::init()
  * @level: priority level (MSG_*) of the message
  * @fmt: printf format string, followed by optional arguments
  *
@@ -165,7 +165,7 @@ void wpa_msg(void *ctx, int level, const char *fmt, ...) PRINTF_FORMAT(3, 4);
 /**
  * wpa_msg_ctrl - Conditional printf for ctrl_iface monitors
  * @ctx: Pointer to context data; this is the ctx variable registered
- *	with struct wpa_driver_ops::esp_init()
+ *	with struct wpa_driver_ops::init()
  * @level: priority level (MSG_*) of the message
  * @fmt: printf format string, followed by optional arguments
  *

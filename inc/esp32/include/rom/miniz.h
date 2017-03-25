@@ -415,7 +415,7 @@ typedef enum
 // ZIP archive reading
 
 // Inits a ZIP archive reader.
-// These functions read and validate the archive's central directory.
+// These functions read and esp_validate the archive's central directory.
 mz_bool mz_zip_reader_init(mz_zip_archive *pZip, mz_uint64 size, mz_uint32 flags);
 mz_bool mz_zip_reader_init_mem(mz_zip_archive *pZip, const void *pMem, size_t size, mz_uint32 flags);
 
@@ -658,7 +658,7 @@ enum
 // tdefl_compress_mem_to_heap() compresses a block in memory to a heap block allocated via malloc().
 // On entry:
 //  pSrc_buf, src_buf_len: Pointer and size of source block to compress.
-//  flags: The max match finder probes (default is 128) logically OR'd against the above flags. Higher probes are slower but improve compression.
+//  flags: The max esp_match finder probes (default is 128) logically OR'd against the above flags. Higher probes are slower but improve compression.
 // On return:
 //  Function returns a pointer to the compressed data, or NULL on failure.
 //  *pOut_len will be set to the compressed data's size, which could be larger than src_buf_len on uncompressible data.

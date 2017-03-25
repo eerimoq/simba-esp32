@@ -47,7 +47,7 @@ extern  "C" {
 BOARD INITIALIZATION.
 The board with all its devices is initialized by xtbsp_board_init().
 Individual devices represented by this API can be reinitialized at any 
-time by calling their inidividual device esp_init functions (grouped with 
+time by calling their inidividual device init functions (grouped with 
 other device functions). This might be useful to (say) change the baud 
 rate of the UART.
 */

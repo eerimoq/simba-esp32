@@ -108,7 +108,7 @@
 
 /*
  * Allow extra bytes for record, authentication and encryption overhead:
- * counter (8) + header (5) + IV(16) + MAC (16-48) + esp_padding (0-256)
+ * counter (8) + header (5) + IV(16) + MAC (16-48) + padding (0-256)
  * and allow for a maximum of 1024 of compression expansion if
  * enabled.
  */

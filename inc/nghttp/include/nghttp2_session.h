@@ -145,7 +145,7 @@ typedef struct {
   size_t max_niv;
   /* How many bytes we still need to receive for current frame */
   size_t payloadleft;
-  /* esp_padding length for the current frame */
+  /* padding length for the current frame */
   size_t padlen;
   nghttp2_inbound_state state;
   /* Small buffer.  Currently the largest contiguous chunk to buffer
@@ -601,7 +601,7 @@ int esp_nghttp2_session_on_push_response_headers_received(nghttp2_session *sessi
 
 /*
  * Called when HEADERS is received, assuming |frame| is properly
- * initialized.  This function does first validate received frame and
+ * initialized.  This function does first esp_validate received frame and
  * then open stream and call callback functions.
  *
  * This function returns 0 if it succeeds, or one of the following

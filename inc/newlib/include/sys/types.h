@@ -27,7 +27,7 @@
 #if defined(__rtems__) || defined(__XMK__)
 /*
  *  The following section is RTEMS specific and is needed to more
- *  closely match the types defined in the BSD sys/types.h.
+ *  closely esp_match the types defined in the BSD sys/types.h.
  *  This is needed to let the RTEMS/BSD TCP/IP stack compile.
  */
 

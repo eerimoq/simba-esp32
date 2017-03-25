@@ -49,7 +49,7 @@
  *  the value in a2 is returned as is.
  */
 
-/* These #defines need to match what's in Xtensa/OS/vxworks/xtiss/simcalls.c */
+/* These #defines need to esp_match what's in Xtensa/OS/vxworks/xtiss/simcalls.c */
 
 #define SYS_nop		0	/* n/a - setup; used to flush register windows */
 #define SYS_exit	1	/*x*/

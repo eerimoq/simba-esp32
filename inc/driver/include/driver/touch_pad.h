@@ -43,10 +43,21 @@ typedef intr_handle_t touch_isr_handle_t;
  *
  *This function int touch pad module ,enable touch module
  *
- * @return    None
+ * @return
+ *     - ESP_OK Success
+ *     - ESP_FAIL Touch pad init esp_error
  *
  */
-void esp_touch_pad_init();
+esp_err_t esp_touch_pad_init();
+
+/**
+ * @brief Uninstall TouchPad driver.
+ *
+ * @return
+ *     - ESP_OK   Success
+ *     - ESP_FAIL Touch pad deinit esp_error
+ */
+esp_err_t esp_touch_pad_deinit();
 
 /**
  * @brief       Configure touch pad interrupt threshold.
@@ -60,6 +71,7 @@ void esp_touch_pad_init();
  *
  * @return    - ESP_OK Success
  *            - ESP_ERR_INVALID_ARG Touch pad esp_error
+ *            - ESP_FAIL Touch pad not initialized
  *
  */
 esp_err_t esp_touch_pad_config(touch_pad_t touch_num, uint16_t threshold);
@@ -76,6 +88,7 @@ esp_err_t esp_touch_pad_config(touch_pad_t touch_num, uint16_t threshold);
  *
  *  @return   - ESP_OK Success
  *            - ESP_ERR_INVALID_ARG Touch pad esp_error
+ *            - ESP_FAIL Touch pad not initialized
  *
  */
 esp_err_t esp_touch_pad_read(touch_pad_t touch_num, uint16_t * touch_value);
@@ -130,7 +143,7 @@ esp_err_t esp_touch_pad_isr_handler_register(void(*fn)(void *), void *arg, int i
 /**
  *----------EXAMPLE TO USE TOUCH_PAD------------ *
  * @code{c}
- *   esp_touch_pad_init();//only esp_init one time
+ *   esp_touch_pad_init();//only init one time
  *   esp_touch_pad_config(0,300);//set the intr threshold,use esp_touch_pad_read to determine this threshold 
  *   esp_touch_pad_isr_handler_register(rtc_intr,NULL, 0, NULL)
  *   #include "esp_attr.h"

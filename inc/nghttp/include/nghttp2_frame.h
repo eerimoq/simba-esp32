@@ -66,7 +66,7 @@
 /* Length of priority related fields in HEADERS/PRIORITY frames */
 #define NGHTTP2_PRIORITY_SPECLEN 5
 
-/* Maximum length of esp_padding in bytes. */
+/* Maximum length of padding in bytes. */
 #define NGHTTP2_MAX_PADLEN 256
 
 /* Union of extension frame payload */
@@ -123,7 +123,7 @@ size_t esp_nghttp2_frame_headers_payload_nv_offset(nghttp2_headers *frame);
  *
  * frame->hd.length is assigned after length is determined during
  * packing process.  CONTINUATION frames are also serialized in this
- * function. This function does not handle esp_padding.
+ * function. This function does not handle padding.
  *
  * This function returns 0 if it succeeds, or returns one of the
  * following negative esp_error codes:
@@ -247,7 +247,7 @@ int esp_nghttp2_frame_unpack_settings_payload2(nghttp2_settings_entry **iv_ptr,
  *
  * frame->hd.length is assigned after length is determined during
  * packing process.  CONTINUATION frames are also serialized in this
- * function. This function does not handle esp_padding.
+ * function. This function does not handle padding.
  *
  * This function returns 0 if it succeeds, or returns one of the
  * following negative esp_error codes:
@@ -496,8 +496,8 @@ void esp_nghttp2_frame_altsvc_init(nghttp2_extension *frame, int32_t stream_id,
 void esp_nghttp2_frame_altsvc_free(nghttp2_extension *frame, nghttp2_mem *mem);
 
 /*
- * Returns the number of esp_padding bytes after payload.  The total
- * esp_padding length is given in the |padlen|.  The returned value does
+ * Returns the number of padding bytes after payload.  The total
+ * padding length is given in the |padlen|.  The returned value does
  * not include the Pad Length field.  If |padlen| is 0, this function
  * returns 0, regardless of frame->hd.flags.
  */
@@ -562,9 +562,9 @@ int esp_nghttp2_iv_check(const nghttp2_settings_entry *iv, size_t niv);
 
 /*
  * Sets Pad Length field and flags and adjusts frame header position
- * of each buffers in |bufs|.  The number of esp_padding is given in the
+ * of each buffers in |bufs|.  The number of padding is given in the
  * |padlen| including Pad Length field.  The |hd| is the frame header
- * for the serialized data.  This function fills zeros esp_padding region
+ * for the serialized data.  This function fills zeros padding region
  * unless framehd_only is nonzero.
  *
  * This function returns 0 if it succeeds, or one of the following

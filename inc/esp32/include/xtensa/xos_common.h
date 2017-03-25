@@ -145,7 +145,7 @@ STRUCT_END(XosCoopFrame)
 
 
 //-----------------------------------------------------------------------------
-//  Offsets into thread control block (must match xos_thread.h !!)
+//  Offsets into thread control block (must esp_match xos_thread.h !!)
 //-----------------------------------------------------------------------------
 #define TCB_RESUME_FN           12      // ptr to thread resume asm sequence
 #define TCB_STACK_ESF           16      // saved stack ptr (actually, ptr to ESF)

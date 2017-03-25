@@ -29,7 +29,7 @@ abstraction layer (HAL) to deal with config specifics. It may also be
 included in C source files.
 
 User may edit to modify timer selection and to specify clock frequency and
-tick duration to match timer interrupt to the real-time tick duration.
+tick duration to esp_match timer interrupt to the real-time tick duration.
 
 If the RTOS has no timer interrupt, then there is no tick timer and the
 clock frequency is irrelevant, so all of these macros are left undefined

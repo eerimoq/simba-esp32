@@ -57,7 +57,7 @@ extern "C" {
 //-----------------------------------------------------------------------------
 // Internal flags for thread creation.
 //-----------------------------------------------------------------------------
-#define XOS_THREAD_FAKE   0x8000  // Don't allocate stack (esp_init and idle threads).
+#define XOS_THREAD_FAKE   0x8000  // Don't allocate stack (init and idle threads).
 
 
 //-----------------------------------------------------------------------------

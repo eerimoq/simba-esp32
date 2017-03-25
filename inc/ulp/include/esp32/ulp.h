@@ -47,6 +47,10 @@ extern "C" {
 
 #define OPCODE_RD_REG 2         /*!< Instruction: read peripheral register (RTC_CNTL/RTC_IO/SARADC) (not implemented yet) */
 
+#define RD_REG_PERIPH_RTC_CNTL 0    /*!< Identifier of RTC_CNTL peripheral for RD_REG and WR_REG instructions */
+#define RD_REG_PERIPH_RTC_IO   1    /*!< Identifier of RTC_IO peripheral for RD_REG and WR_REG instructions */
+#define RD_REG_PERIPH_SENS     2    /*!< Identifier of SARADC peripheral for RD_REG and WR_REG instructions */
+
 #define OPCODE_I2C 3            /*!< Instruction: read/write I2C (not implemented yet) */
 
 #define OPCODE_DELAY 4          /*!< Instruction: delay (nop) for a given number of cycles */
@@ -77,7 +81,7 @@ extern "C" {
 #define B_CMP_L 0               /*!< Branch if R0 is less than an immediate */
 #define B_CMP_GE 1              /*!< Branch if R0 is greater than or equal to an immediate */
 
-#define OPCODE_END 9            /*!< Stop executing the program (not implemented yet) */
+#define OPCODE_END 9            /*!< Stop executing the program */
 #define SUB_OPCODE_END 0        /*!< Stop executing the program and optionally wake up the chip */
 #define SUB_OPCODE_SLEEP 1      /*!< Stop executing the program and run it again after selected interval */
 
@@ -191,8 +195,8 @@ typedef union {
         uint32_t addr : 8;          /*!< Address within either RTC_CNTL, RTC_IO, or SARADC */
         uint32_t periph_sel : 2;    /*!< Select peripheral: RTC_CNTL (0), RTC_IO(1), SARADC(2) */
         uint32_t data : 8;          /*!< 8 bits of data to write */
-        uint32_t high : 5;          /*!< High bit */
         uint32_t low : 5;           /*!< Low bit */
+        uint32_t high : 5;          /*!< High bit */
         uint32_t opcode : 4;        /*!< Opcode (OPCODE_WR_REG) */
     } wr_reg;                       /*!< Format of WR_REG instruction */
 
@@ -200,10 +204,10 @@ typedef union {
         uint32_t addr : 8;          /*!< Address within either RTC_CNTL, RTC_IO, or SARADC */
         uint32_t periph_sel : 2;    /*!< Select peripheral: RTC_CNTL (0), RTC_IO(1), SARADC(2) */
         uint32_t unused : 8;        /*!< Unused */
-        uint32_t high : 5;          /*!< High bit */
         uint32_t low : 5;           /*!< Low bit */
+        uint32_t high : 5;          /*!< High bit */
         uint32_t opcode : 4;        /*!< Opcode (OPCODE_WR_REG) */
-    } rd_reg;                       /*!< Format of WR_REG instruction */
+    } rd_reg;                       /*!< Format of RD_REG instruction */
 
     struct {
         uint32_t dreg : 2;          /*!< Register where to store ADC result */
@@ -218,7 +222,7 @@ typedef union {
     struct {
         uint32_t dreg : 2;          /*!< Register where to store temperature measurement result */
         uint32_t wait_delay: 14;    /*!< Cycles to wait after measurement is done */
-        uint32_t cycles: 12;        /*!< Cycles used to perform measurement */
+        uint32_t reserved: 12;      /*!< Reserved, set to 0 */
         uint32_t opcode: 4;         /*!< Opcode (OPCODE_TSENS) */
     } tsens;                        /*!< Format of TSENS instruction */
 
@@ -256,6 +260,8 @@ typedef union {
 
 } ulp_insn_t;
 
+_Static_assert(sizeof(ulp_insn_t) == 4, "ULP coprocessor instruction size should be 4 bytes");
+
 /**
  * Delay (nop) for a given number of cycles
  */
@@ -265,12 +271,158 @@ typedef union {
     .cycles = cycles_ } }
 
 /**
- * Halt the coprocessor
+ * Halt the coprocessor.
+ *
+ * This instruction halts the coprocessor, but keeps ULP timer active.
+ * As such, ULP program will be restarted again by timer.
+ * To stop the program and prevent the timer from restarting the program,
+ * use I_END(0) instruction.
  */
 #define I_HALT() { .halt = {\
     .unused = 0, \
     .opcode = OPCODE_HALT } }
 
+/**
+ * Map SoC peripheral register to periph_sel field of RD_REG and WR_REG
+ * instructions.
+ *
+ * @param reg peripheral register in RTC_CNTL_, RTC_IO_, SENS_ peripherals.
+ * @return periph_sel value for the peripheral to which this register belongs.
+ */
+static inline uint32_t SOC_REG_TO_ULP_PERIPH_SEL(uint32_t reg) {
+    uint32_t ret = 3;
+    if (reg < DR_REG_RTCCNTL_BASE) {
+        assert(0 && "invalid register base");
+    } else if (reg < DR_REG_RTCIO_BASE) {
+        ret = RD_REG_PERIPH_RTC_CNTL;
+    } else if (reg < DR_REG_SENS_BASE) {
+        ret = RD_REG_PERIPH_RTC_IO;
+    } else if (reg < DR_REG_RTCMEM0_BASE){
+        ret = RD_REG_PERIPH_SENS;
+    } else {
+        assert(0 && "invalid register base");
+    }
+    return ret;
+}
+
+/**
+ * Write literal value to a peripheral register
+ *
+ * reg[high_bit : low_bit] = val
+ * This instruction can access RTC_CNTL_, RTC_IO_, and SENS_ peripheral registers.
+ */
+#define I_WR_REG(reg, low_bit, high_bit, val) {.wr_reg = {\
+    .addr = (reg & 0xff) / sizeof(uint32_t), \
+    .periph_sel = SOC_REG_TO_ULP_PERIPH_SEL(reg), \
+    .data = val, \
+    .low = low_bit, \
+    .high = high_bit, \
+    .opcode = OPCODE_WR_REG } }
+
+/**
+ * Read from peripheral register into R0
+ *
+ * R0 = reg[high_bit : low_bit]
+ * This instruction can access RTC_CNTL_, RTC_IO_, and SENS_ peripheral registers.
+ */
+#define I_RD_REG(reg, low_bit, high_bit) {.rd_reg = {\
+    .addr = (reg & 0xff) / sizeof(uint32_t), \
+    .periph_sel = SOC_REG_TO_ULP_PERIPH_SEL(reg), \
+    .unused = 0, \
+    .low = low_bit, \
+    .high = high_bit, \
+    .opcode = OPCODE_RD_REG } }
+
+/**
+ * Set or clear a bit in the peripheral register.
+ *
+ * Sets bit (1 << shift) of register reg to value val.
+ * This instruction can access RTC_CNTL_, RTC_IO_, and SENS_ peripheral registers.
+ */
+#define I_WR_REG_BIT(reg, shift, val) I_WR_REG(reg, shift, shift, val)
+
+/**
+ * Wake the SoC from deep sleep.
+ *
+ * This instruction initiates wake up from deep sleep.
+ * Use esp_esp_deep_sleep_enable_ulp_wakeup to enable deep sleep wakeup
+ * triggered by the ULP before going into deep sleep.
+ * Note that ULP program will still keep running until the I_HALT
+ * instruction, and it will still be restarted by timer at regular
+ * intervals, even when the SoC is woken up.
+ *
+ * To stop the ULP program, use I_HALT instruction.
+ *
+ * To disable the timer which start ULP program, use I_END()
+ * instruction. I_END instruction clears the
+ * RTC_CNTL_ULP_CP_SLP_TIMER_EN_S bit of RTC_CNTL_STATE0_REG
+ * register, which controls the ULP timer.
+ */
+#define I_WAKE() { .end = { \
+        .wakeup = 1, \
+        .unused = 0, \
+        .sub_opcode = SUB_OPCODE_END, \
+        .opcode = OPCODE_END } }
+
+/**
+ * Stop ULP program timer.
+ *
+ * This is a convenience macro which disables the ULP program timer.
+ * Once this instruction is used, ULP program will not be restarted
+ * anymore until esp_ulp_run function is called.
+ *
+ * ULP program will continue running after this instruction. To stop
+ * the currently running program, use I_HALT().
+ */
+#define I_END() \
+    I_WR_REG_BIT(RTC_CNTL_STATE0_REG, RTC_CNTL_ULP_CP_SLP_TIMER_EN_S, 0)
+/**
+ * Select the time interval used to run ULP program.
+ *
+ * This instructions selects which of the SENS_SLEEP_CYCLES_Sx
+ * registers' value is used by the ULP program timer.
+ * When the ULP program stops at I_HALT instruction, ULP program
+ * timer start counting. When the counter reaches the value of
+ * the selected SENS_SLEEP_CYCLES_Sx register, ULP program
+ * start running again from the start address (passed to the esp_ulp_run
+ * function).
+ * There are 5 SENS_SLEEP_CYCLES_Sx registers, so 0 <= timer_idx < 5.
+ *
+ * By default, SENS_SLEEP_CYCLES_S0 register is used by the ULP
+ * program timer.
+ */
+#define I_SLEEP_CYCLE_SEL(timer_idx) { .sleep = { \
+        .cycle_sel = timer_idx, \
+        .unused = 0, \
+        .sub_opcode = SUB_OPCODE_SLEEP, \
+        .opcode = OPCODE_END } }
+
+/**
+ * Perform temperature sensor measurement and store it into reg_dest.
+ *
+ * Delay can be set between 1 and ((1 << 14) - 1). Higher values give
+ * higher measurement resolution.
+ */
+#define I_TSENS(reg_dest, delay) { .tsens = { \
+        .dreg = reg_dest, \
+        .wait_delay = delay, \
+        .reserved = 0, \
+        .opcode = OPCODE_TSENS } }
+
+/**
+ * Perform ADC measurement and store result in reg_dest.
+ *
+ * adc_idx selects ADC (0 or 1).
+ * pad_idx selects ADC pad (0 - 7).
+ */
+#define I_ADC(reg_dest, adc_idx, pad_idx) { .adc = {\
+        .dreg = reg_dest, \
+        .mux = pad_idx + 1, \
+        .sar_sel = adc_idx, \
+        .unused1 = 0, \
+        .cycles = 0, \
+        .unused2 = 0, \
+        .opcode = OPCODE_ADC } }
 
 /**
  * Store value from register reg_val into RTC memory.
@@ -278,9 +430,9 @@ typedef union {
  * The value is written to an offset calculated by adding value of
  * reg_addr register and offset_ field (this offset is expressed in 32-bit words).
  * 32 bits written to RTC memory are built as follows:
- * - 5 MSBs are zero
- * - next 11 bits hold the PC of current instruction, expressed in 32-bit words
- * - next 16 bits hold the actual value to be written
+ * - bits [31:21] hold the PC of current instruction, expressed in 32-bit words
+ * - bits [20:16] = 5'b1
+ * - bits [15:0] are assigned the contents of reg_val
  *
  * RTC_SLOW_MEM[addr + offset_] = { 5'b0, insn_PC[10:0], val[15:0] }
  */
@@ -541,7 +693,7 @@ typedef union {
 #define I_ANDI(reg_dest, reg_src, imm_) { .alu_imm = { \
     .dreg = reg_dest, \
     .sreg = reg_src, \
-    .imm = reg_imm_, \
+    .imm = imm_, \
     .unused = 0, \
     .sel = ALU_SEL_AND, \
     .sub_opcode = SUB_OPCODE_ALU_IMM, \

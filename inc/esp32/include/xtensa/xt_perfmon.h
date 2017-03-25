@@ -35,8 +35,8 @@ typedef int counter_id_t;
 /* xt_perf_init
 
    Initialize the performance monitor library.  Ordinarily, this
-   function is called automatically via the .esp_init section. If your
-   environment does not support the .esp_init section, you will need to
+   function is called automatically via the .init section. If your
+   environment does not support the .init section, you will need to
    call this function from your code.
 */
 

@@ -16,7 +16,7 @@
 extern "C" {
 #endif
 
-/* This version of struct mallinfo must match the one in
+/* This version of struct mallinfo must esp_match the one in
    libc/stdlib/mallocr.c.  */
 
 struct mallinfo {

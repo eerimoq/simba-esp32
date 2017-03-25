@@ -39,8 +39,8 @@ xt_profile_init
    ISS: a no op.
 
    HWP: Initialize the profiler.  Ordinarily, this function is called 
-   automatically via the .esp_init section. If your environment does not 
-   support the .esp_init section, you will need to call this function 
+   automatically via the .init section. If your environment does not 
+   support the .init section, you will need to call this function 
    by hand.
 */
 extern void xt_profile_init(void);

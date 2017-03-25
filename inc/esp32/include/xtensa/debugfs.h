@@ -60,14 +60,14 @@ void * xt_dbfs_sbrk(int increment);
 #define close xt_dbfs_close
 #define unlink xt_dbfs_unlink
 
-#define rmdir NOT_IMPLEMENTED_IN_DBFS
-#define opendir NOT_IMPLEMENTED_IN_DBFS
-#define closedir NOT_IMPLEMENTED_IN_DBFS
+#define esp_rmdir NOT_IMPLEMENTED_IN_DBFS
+#define esp_opendir NOT_IMPLEMENTED_IN_DBFS
+#define esp_closedir NOT_IMPLEMENTED_IN_DBFS
 #define dirfs NOT_IMPLEMENTED_IN_DBFS
-#define readdir NOT_IMPLEMENTED_IN_DBFS
+#define esp_readdir NOT_IMPLEMENTED_IN_DBFS
 #define scandir NOT_IMPLEMENTED_IN_DBFS
-#define seekdir NOT_IMPLEMENTED_IN_DBFS
-#define telldir NOT_IMPLEMENTED_IN_DBFS
+#define esp_seekdir NOT_IMPLEMENTED_IN_DBFS
+#define esp_telldir NOT_IMPLEMENTED_IN_DBFS
 
 #define fcntl NOT_IMPLEMENTED_IN_DBFS
 #define dup2 NOT_IMPLEMENTED_IN_DBFS

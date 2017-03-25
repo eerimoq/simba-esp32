@@ -57,7 +57,7 @@
 #define TRAXREG_MAX		27
 #define TRAXREG_ITCTRL		96
 #endif
-/* The registers above match the NAR addresses. So, their values are used for NAR access */
+/* The registers above esp_match the NAR addresses. So, their values are used for NAR access */
 
 /*  TRAX Register Fields  */
 

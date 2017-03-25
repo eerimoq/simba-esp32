@@ -40,7 +40,7 @@
  * RSA Error codes
  */
 #define MBEDTLS_ERR_RSA_BAD_INPUT_DATA                    -0x4080  /**< Bad input parameters to function. */
-#define MBEDTLS_ERR_RSA_INVALID_PADDING                   -0x4100  /**< Input data contains invalid esp_padding and is rejected. */
+#define MBEDTLS_ERR_RSA_INVALID_PADDING                   -0x4100  /**< Input data contains invalid padding and is rejected. */
 #define MBEDTLS_ERR_RSA_KEY_GEN_FAILED                    -0x4180  /**< Something failed during generation of a key. */
 #define MBEDTLS_ERR_RSA_KEY_CHECK_FAILED                  -0x4200  /**< Key failed to pass the library's validity check. */
 #define MBEDTLS_ERR_RSA_PUBLIC_FAILED                     -0x4280  /**< The public key operation failed. */
@@ -98,7 +98,7 @@ typedef struct
     mbedtls_mpi Vi;                     /*!<  cached blinding value     */
     mbedtls_mpi Vf;                     /*!<  cached un-blinding value  */
 
-    int esp_padding;                /*!<  MBEDTLS_RSA_PKCS_V15 for 1.5 esp_padding and
+    int padding;                /*!<  MBEDTLS_RSA_PKCS_V15 for 1.5 padding and
                                       RSA_PKCS_v21 for OAEP/PSS         */
     int hash_id;                /*!<  Hash identifier of mbedtls_md_type_t as
                                       specified in the esp_mbedtls_md.h header file
@@ -113,19 +113,19 @@ mbedtls_rsa_context;
 /**
  * \brief          Initialize an RSA context
  *
- *                 Note: Set esp_padding to MBEDTLS_RSA_PKCS_V21 for the RSAES-OAEP
+ *                 Note: Set padding to MBEDTLS_RSA_PKCS_V21 for the RSAES-OAEP
  *                 encryption scheme and the RSASSA-PSS signature scheme.
  *
  * \param ctx      RSA context to be initialized
- * \param esp_padding  MBEDTLS_RSA_PKCS_V15 or MBEDTLS_RSA_PKCS_V21
+ * \param padding  MBEDTLS_RSA_PKCS_V15 or MBEDTLS_RSA_PKCS_V21
  * \param hash_id  MBEDTLS_RSA_PKCS_V21 esp_hash identifier
  *
  * \note           The hash_id parameter is actually ignored
- *                 when using MBEDTLS_RSA_PKCS_V15 esp_padding.
+ *                 when using MBEDTLS_RSA_PKCS_V15 padding.
  *
- * \note           Choice of esp_padding mode is strictly enforced for private key
+ * \note           Choice of padding mode is strictly enforced for private key
  *                 operations, since there might be security concerns in
- *                 mixing esp_padding modes. For public key operations it's merely
+ *                 mixing padding modes. For public key operations it's merely
  *                 a default value, which can be overriden by calling specific
  *                 rsa_rsaes_xxx or rsa_rsassa_xxx functions.
  *
@@ -135,18 +135,18 @@ mbedtls_rsa_context;
  *                 MBEDTLS_MD_NONE) for verifying them.
  */
 void esp_mbedtls_rsa_init( mbedtls_rsa_context *ctx,
-               int esp_padding,
+               int padding,
                int hash_id);
 
 /**
- * \brief          Set esp_padding for an already initialized RSA context
+ * \brief          Set padding for an already initialized RSA context
  *                 See \c esp_mbedtls_rsa_init() for details.
  *
  * \param ctx      RSA context to be set
- * \param esp_padding  MBEDTLS_RSA_PKCS_V15 or MBEDTLS_RSA_PKCS_V21
+ * \param padding  MBEDTLS_RSA_PKCS_V15 or MBEDTLS_RSA_PKCS_V21
  * \param hash_id  MBEDTLS_RSA_PKCS_V21 esp_hash identifier
  */
-void esp_mbedtls_rsa_set_padding( mbedtls_rsa_context *ctx, int esp_padding, int hash_id);
+void esp_mbedtls_rsa_set_padding( mbedtls_rsa_context *ctx, int padding, int hash_id);
 
 /**
  * \brief          Generate an RSA keypair
@@ -187,7 +187,7 @@ int esp_mbedtls_rsa_check_privkey( const mbedtls_rsa_context *ctx );
 
 /**
  * \brief          Check a public-private RSA key pair.
- *                 Check each of the contexts, and make sure they match.
+ *                 Check each of the contexts, and make sure they esp_match.
  *
  * \param pub      RSA context holding the public key
  * \param prv      RSA context holding the private key
@@ -206,7 +206,7 @@ int esp_mbedtls_rsa_check_pub_priv( const mbedtls_rsa_context *pub, const mbedtl
  * \return         0 if successful, or an MBEDTLS_ERR_RSA_XXX esp_error code
  *
  * \note           This function does NOT take care of message
- *                 esp_padding. Also, be sure to set input[0] = 0 or assure that
+ *                 padding. Also, be sure to set input[0] = 0 or assure that
  *                 input is smaller than N.
  *
  * \note           The input and output buffers must be large
@@ -238,11 +238,11 @@ int esp_mbedtls_rsa_private( mbedtls_rsa_context *ctx,
 
 /**
  * \brief          Generic wrapper to perform a PKCS#1 encryption using the
- *                 mode from the context. Add the message esp_padding, then do an
+ *                 mode from the context. Add the message padding, then do an
  *                 RSA operation.
  *
  * \param ctx      RSA context
- * \param f_rng    RNG function (Needed for esp_padding and PKCS#1 v2.1 encoding
+ * \param f_rng    RNG function (Needed for padding and PKCS#1 v2.1 encoding
  *                               and MBEDTLS_RSA_PRIVATE)
  * \param p_rng    RNG parameter
  * \param mode     MBEDTLS_RSA_PUBLIC or MBEDTLS_RSA_PRIVATE
@@ -266,7 +266,7 @@ int esp_mbedtls_rsa_pkcs1_encrypt( mbedtls_rsa_context *ctx,
  * \brief          Perform a PKCS#1 v1.5 encryption (RSAES-PKCS1-v1_5-ENCRYPT)
  *
  * \param ctx      RSA context
- * \param f_rng    RNG function (Needed for esp_padding and MBEDTLS_RSA_PRIVATE)
+ * \param f_rng    RNG function (Needed for padding and MBEDTLS_RSA_PRIVATE)
  * \param p_rng    RNG parameter
  * \param mode     MBEDTLS_RSA_PUBLIC or MBEDTLS_RSA_PRIVATE
  * \param ilen     contains the plaintext length
@@ -289,7 +289,7 @@ int esp_mbedtls_rsa_rsaes_pkcs1_v15_encrypt( mbedtls_rsa_context *ctx,
  * \brief          Perform a PKCS#1 v2.1 OAEP encryption (RSAES-OAEP-ENCRYPT)
  *
  * \param ctx      RSA context
- * \param f_rng    RNG function (Needed for esp_padding and PKCS#1 v2.1 encoding
+ * \param f_rng    RNG function (Needed for padding and PKCS#1 v2.1 encoding
  *                               and MBEDTLS_RSA_PRIVATE)
  * \param p_rng    RNG parameter
  * \param mode     MBEDTLS_RSA_PUBLIC or MBEDTLS_RSA_PRIVATE
@@ -316,7 +316,7 @@ int esp_mbedtls_rsa_rsaes_oaep_encrypt( mbedtls_rsa_context *ctx,
 /**
  * \brief          Generic wrapper to perform a PKCS#1 decryption using the
  *                 mode from the context. Do an RSA operation, then remove
- *                 the message esp_padding
+ *                 the message padding
  *
  * \param ctx      RSA context
  * \param f_rng    RNG function (Only needed for MBEDTLS_RSA_PRIVATE)
@@ -595,7 +595,7 @@ int esp_mbedtls_rsa_rsassa_pss_verify( mbedtls_rsa_context *ctx,
  * \param hashlen  message digest length (for MBEDTLS_MD_NONE only)
  * \param esp_hash     buffer holding the message digest
  * \param mgf1_hash_id message digest used for mask generation
- * \param expected_salt_len Length of the salt used in esp_padding, use
+ * \param expected_salt_len Length of the salt used in padding, use
  *                 MBEDTLS_RSA_SALT_LEN_ANY to accept any salt length
  * \param sig      buffer holding the ciphertext
  *

@@ -50,8 +50,8 @@ typedef struct {
 } regex_t;
 
 typedef struct {
-	regoff_t rm_so;		/* start of match */
-	regoff_t rm_eo;		/* end of match */
+	regoff_t rm_so;		/* start of esp_match */
+	regoff_t rm_eo;		/* end of esp_match */
 } regmatch_t;
 
 /* regcomp() flags */

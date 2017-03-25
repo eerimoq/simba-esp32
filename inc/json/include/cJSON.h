@@ -90,6 +90,7 @@ extern cJSON *esp_cJSON_CreateTrue(void);
 extern cJSON *esp_cJSON_CreateFalse(void);
 extern cJSON *esp_cJSON_CreateBool(int b);
 extern cJSON *esp_cJSON_CreateNumber(double num);
+extern cJSON *esp_cJSON_CreateDouble(double num,int i_num);
 extern cJSON *esp_cJSON_CreateString(const char *string);
 extern cJSON *esp_cJSON_CreateArray(void);
 extern cJSON *esp_cJSON_CreateObject(void);

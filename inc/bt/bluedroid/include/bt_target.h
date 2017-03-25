@@ -558,7 +558,7 @@
 #define BTM_SEC_TIMEOUT_VALUE           35
 #endif
 
-/* Maximum number of callbacks that can be registered using esp_BTM_RegisterForVSEvents */
+/* Maximum number of callbacks that can be registered using BTM_RegisterForVSEvents */
 #ifndef BTM_MAX_VSE_CALLBACKS
 #define BTM_MAX_VSE_CALLBACKS           3
 #endif
@@ -1155,15 +1155,15 @@
 #endif
 
 /* if application like BTA, Java or script test engine is running on other than BTU thread, */
-/* PORT_SCHEDULE_LOCK shall be defined as GKI_sched_lock() or esp_GKI_disable() */
+/* PORT_SCHEDULE_LOCK shall be defined as GKI_sched_lock() or GKI_disable() */
 #ifndef PORT_SCHEDULE_LOCK
-#define PORT_SCHEDULE_LOCK          esp_GKI_disable()
+#define PORT_SCHEDULE_LOCK          GKI_disable()
 #endif
 
 /* if application like BTA, Java or script test engine is running on other than BTU thread, */
-/* PORT_SCHEDULE_LOCK shall be defined as GKI_sched_unlock() or esp_GKI_enable() */
+/* PORT_SCHEDULE_LOCK shall be defined as GKI_sched_unlock() or GKI_enable() */
 #ifndef PORT_SCHEDULE_UNLOCK
-#define PORT_SCHEDULE_UNLOCK        esp_GKI_enable()
+#define PORT_SCHEDULE_UNLOCK        GKI_enable()
 #endif
 
 /******************************************************************************
@@ -1776,7 +1776,7 @@ The maximum number of payload octets that the local device can receive in a sing
 #define BTA_AG_CHLD_VAL  "(0,1,2,3)"
 #endif
 
-/* Set the CIND to match HFP 1.5 */
+/* Set the CIND to esp_match HFP 1.5 */
 #ifndef BTA_AG_CIND_INFO
 #define BTA_AG_CIND_INFO "(\"call\",(0,1)),(\"callsetup\",(0-3)),(\"service\",(0-1)),(\"signal\",(0-5)),(\"roam\",(0,1)),(\"battchg\",(0-5)),(\"callheld\",(0-2))"
 #endif

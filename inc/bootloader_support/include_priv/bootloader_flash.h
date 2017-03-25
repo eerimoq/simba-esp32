@@ -36,7 +36,7 @@
  *
  * @important In app code, these functions are not thread safe.
  *
- * Call bootloader_munmap once for each successful call to bootloader_mmap.
+ * Call esp_bootloader_munmap once for each successful call to esp_bootloader_mmap.
  *
  * In esp-idf app, this function maps directly to esp_spi_flash_mmap.
  *
@@ -46,15 +46,15 @@
  * @return Pointer to mapped data memory (at src_addr), or NULL
  * if an allocation esp_error occured.
  */
-const void *bootloader_mmap(uint32_t src_addr, uint32_t size);
+const void *esp_bootloader_mmap(uint32_t src_addr, uint32_t size);
 
 
 /**
  * @brief Unmap a previously mapped region of flash
  *
- * Call bootloader_munmap once for each successful call to bootloader_mmap.
+ * Call esp_bootloader_munmap once for each successful call to esp_bootloader_mmap.
  */
-void bootloader_munmap(const void *mapping);
+void esp_bootloader_munmap(const void *mapping);
 
 /**
  * @brief  Read data from Flash.
@@ -71,7 +71,7 @@ void bootloader_munmap(const void *mapping);
  * @return ESP_OK on success, ESP_ERR_FLASH_OP_FAIL on SPI failure,
  * ESP_ERR_FLASH_OP_TIMEOUT on SPI timeout.
  */
-esp_err_t bootloader_flash_read(size_t src_addr, void *dest, size_t size, bool allow_decrypt);
+esp_err_t esp_bootloader_flash_read(size_t src_addr, void *dest, size_t size, bool allow_decrypt);
 
 
 /**
@@ -89,7 +89,7 @@ esp_err_t bootloader_flash_read(size_t src_addr, void *dest, size_t size, bool a
  * @return ESP_OK on success, ESP_ERR_FLASH_OP_FAIL on SPI failure,
  * ESP_ERR_FLASH_OP_TIMEOUT on SPI timeout.
  */
-esp_err_t bootloader_flash_write(size_t dest_addr, void *src, size_t size, bool write_encrypted);
+esp_err_t esp_bootloader_flash_write(size_t dest_addr, void *src, size_t size, bool write_encrypted);
 
 /**
  * @brief  Erase the Flash sector.
@@ -98,6 +98,6 @@ esp_err_t bootloader_flash_write(size_t dest_addr, void *src, size_t size, bool 
  *
  * @return esp_err_t
  */
-esp_err_t bootloader_flash_erase_sector(size_t sector);
+esp_err_t esp_bootloader_flash_erase_sector(size_t sector);
 
 #endif

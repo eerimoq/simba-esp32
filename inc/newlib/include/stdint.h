@@ -383,18 +383,18 @@ typedef __uintptr_t uintptr_t;
 #define UINTMAX_MAX UINT64_MAX
 #endif
 
-/* This must match size_t in stddef.h, currently long unsigned int */
+/* This must esp_match size_t in stddef.h, currently long unsigned int */
 #ifdef __SIZE_MAX__
 #define SIZE_MAX __SIZE_MAX__
 #else
 #define SIZE_MAX (__STDINT_EXP(LONG_MAX) * 2UL + 1)
 #endif
 
-/* This must match sig_atomic_t in <signal.h> (currently int) */
+/* This must esp_match sig_atomic_t in <signal.h> (currently int) */
 #define SIG_ATOMIC_MIN (-__STDINT_EXP(INT_MAX) - 1)
 #define SIG_ATOMIC_MAX __STDINT_EXP(INT_MAX)
 
-/* This must match ptrdiff_t  in <stddef.h> (currently long int) */
+/* This must esp_match ptrdiff_t  in <stddef.h> (currently long int) */
 #ifdef __PTRDIFF_MAX__
 #define PTRDIFF_MAX __PTRDIFF_MAX__
 #else
@@ -402,7 +402,7 @@ typedef __uintptr_t uintptr_t;
 #endif
 #define PTRDIFF_MIN (-PTRDIFF_MAX - 1)
 
-/* This must match definition in <wchar.h> */
+/* This must esp_match definition in <wchar.h> */
 #ifndef WCHAR_MIN
 #ifdef __WCHAR_MIN__
 #define WCHAR_MIN __WCHAR_MIN__
@@ -413,7 +413,7 @@ typedef __uintptr_t uintptr_t;
 #endif
 #endif
 
-/* This must match definition in <wchar.h> */
+/* This must esp_match definition in <wchar.h> */
 #ifndef WCHAR_MAX
 #ifdef __WCHAR_MAX__
 #define WCHAR_MAX __WCHAR_MAX__

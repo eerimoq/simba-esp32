@@ -267,7 +267,7 @@ int esp_mbedtls_md( const mbedtls_md_info_t *md_info, const unsigned char *input
  *                 MBEDTLS_ERR_MD_FILE_IO_ERROR if file input failed,
  *                 MBEDTLS_ERR_MD_BAD_INPUT_DATA if md_info was NULL.
  */
-int mbedtls_md_file( const mbedtls_md_info_t *md_info, const char *path,
+int esp_mbedtls_md_file( const mbedtls_md_info_t *md_info, const char *path,
                      unsigned char *output );
 #endif /* MBEDTLS_FS_IO */
 

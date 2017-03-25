@@ -24,7 +24,7 @@
 # define WEOF ((wint_t)-1)
 #endif
 
-/* This must match definition in <stdint.h> */
+/* This must esp_match definition in <stdint.h> */
 #ifndef WCHAR_MIN
 #ifdef __WCHAR_MIN__
 #define WCHAR_MIN __WCHAR_MIN__
@@ -35,7 +35,7 @@
 #endif
 #endif
 
-/* This must match definition in <stdint.h> */
+/* This must esp_match definition in <stdint.h> */
 #ifndef WCHAR_MAX
 #ifdef __WCHAR_MAX__
 #define WCHAR_MAX __WCHAR_MAX__

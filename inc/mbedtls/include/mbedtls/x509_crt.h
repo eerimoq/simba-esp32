@@ -200,7 +200,7 @@ int esp_mbedtls_x509_crt_parse( mbedtls_x509_crt *chain, const unsigned char *bu
  * \return         0 if all certificates parsed successfully, a positive number
  *                 if partly successful or a specific X509 or PEM esp_error code
  */
-int mbedtls_x509_crt_parse_file( mbedtls_x509_crt *chain, const char *path );
+int esp_mbedtls_x509_crt_parse_file( mbedtls_x509_crt *chain, const char *path );
 
 /**
  * \brief          Load one or more certificate files from a path and add them
@@ -215,7 +215,7 @@ int mbedtls_x509_crt_parse_file( mbedtls_x509_crt *chain, const char *path );
  * \return         0 if all certificates parsed successfully, a positive number
  *                 if partly successful or a specific X509 or PEM esp_error code
  */
-int mbedtls_x509_crt_parse_path( mbedtls_x509_crt *chain, const char *path );
+int esp_mbedtls_x509_crt_parse_path( mbedtls_x509_crt *chain, const char *path );
 #endif /* MBEDTLS_FS_IO */
 
 /**
@@ -350,7 +350,7 @@ int esp_mbedtls_x509_crt_verify_with_profile( mbedtls_x509_crt *crt,
  *
  * \return         0 is these uses of the certificate are allowed,
  *                 MBEDTLS_ERR_X509_BAD_INPUT_DATA if the keyUsage extension
- *                 is present but does not match the usage argument.
+ *                 is present but does not esp_match the usage argument.
  *
  * \note           You should only call this function on leaf certificates, on
  *                 (intermediate) CAs the keyUsage extension is automatically

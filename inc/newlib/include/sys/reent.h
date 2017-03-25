@@ -137,7 +137,7 @@ struct __sbuf {
  *
  * _ub, _up, and _ur are used when ungetc() pushes back more characters
  * than fit in the current _bf, or when ungetc() pushes back a character
- * that does not match the previous one in _bf.  When this happens,
+ * that does not esp_match the previous one in _bf.  When this happens,
  * _ub._base becomes non-nil (i.e., a stream has ungetc() data iff
  * _ub._base!=NULL) and _up and _ur save the current values of _p and _r.
  */
@@ -382,7 +382,7 @@ struct _reent
 
   char *_emergency;
 
-  int __sdidinit;		/* 1 means stdio has been esp_init'd */
+  int __sdidinit;		/* 1 means stdio has been init'd */
 
   int _current_category;	/* unused */
   _CONST char *_current_locale;	/* unused */
@@ -467,12 +467,12 @@ extern const struct __sFILE_fake __sf_fake_stderr;
 #endif
 
 /* Generic _REENT check macro.  */
-#define _REENT_CHECK(var, what, type, size, esp_init) do { \
+#define _REENT_CHECK(var, what, type, size, init) do { \
   struct _reent *_r = (var); \
   if (_r->what == NULL) { \
     _r->what = (type)malloc(size); \
     __reent_assert(_r->what); \
-    esp_init; \
+    init; \
   } \
 } while (0)
 
@@ -581,7 +581,7 @@ struct _reent
   int _current_category;	/* used by setlocale */
   _CONST char *_current_locale;
 
-  int __sdidinit;		/* 1 means stdio has been esp_init'd */
+  int __sdidinit;		/* 1 means stdio has been init'd */
 
   void _EXFNPTR(__cleanup, (struct _reent *));
 

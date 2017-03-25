@@ -54,7 +54,7 @@
 #define MBEDTLS_ERR_CIPHER_FEATURE_UNAVAILABLE            -0x6080  /**< The selected feature is not available. */
 #define MBEDTLS_ERR_CIPHER_BAD_INPUT_DATA                 -0x6100  /**< Bad input parameters to function. */
 #define MBEDTLS_ERR_CIPHER_ALLOC_FAILED                   -0x6180  /**< Failed to allocate memory. */
-#define MBEDTLS_ERR_CIPHER_INVALID_PADDING                -0x6200  /**< Input data contains invalid esp_padding and is rejected. */
+#define MBEDTLS_ERR_CIPHER_INVALID_PADDING                -0x6200  /**< Input data contains invalid padding and is rejected. */
 #define MBEDTLS_ERR_CIPHER_FULL_BLOCK_EXPECTED            -0x6280  /**< Decryption of block requires a full block. */
 #define MBEDTLS_ERR_CIPHER_AUTH_FAILED                    -0x6300  /**< Authentication failed (for AEAD modes). */
 #define MBEDTLS_ERR_CIPHER_INVALID_CONTEXT              -0x6380  /**< The context is invalid, eg because it was free()ed. */
@@ -142,10 +142,10 @@ typedef enum {
 } mbedtls_cipher_mode_t;
 
 typedef enum {
-    MBEDTLS_PADDING_PKCS7 = 0,     /**< PKCS7 esp_padding (default)        */
-    MBEDTLS_PADDING_ONE_AND_ZEROS, /**< ISO/IEC 7816-4 esp_padding         */
-    MBEDTLS_PADDING_ZEROS_AND_LEN, /**< ANSI X.923 esp_padding             */
-    MBEDTLS_PADDING_ZEROS,         /**< zero esp_padding (not reversible!) */
+    MBEDTLS_PADDING_PKCS7 = 0,     /**< PKCS7 padding (default)        */
+    MBEDTLS_PADDING_ONE_AND_ZEROS, /**< ISO/IEC 7816-4 padding         */
+    MBEDTLS_PADDING_ZEROS_AND_LEN, /**< ANSI X.923 padding             */
+    MBEDTLS_PADDING_ZEROS,         /**< zero padding (not reversible!) */
     MBEDTLS_PADDING_NONE,          /**< never pad (full blocks only)   */
 } mbedtls_cipher_padding_t;
 
@@ -457,16 +457,16 @@ int esp_mbedtls_cipher_setkey( mbedtls_cipher_context_t *ctx, const unsigned cha
 
 #if defined(MBEDTLS_CIPHER_MODE_WITH_PADDING)
 /**
- * \brief               Set esp_padding mode, for cipher modes that use esp_padding.
- *                      (Default: PKCS7 esp_padding.)
+ * \brief               Set padding mode, for cipher modes that use padding.
+ *                      (Default: PKCS7 padding.)
  *
  * \param ctx           generic cipher context
- * \param mode          esp_padding mode
+ * \param mode          padding mode
  *
  * \returns             0 on success, MBEDTLS_ERR_CIPHER_FEATURE_UNAVAILABLE
- *                      if selected esp_padding mode is not supported, or
+ *                      if selected padding mode is not supported, or
  *                      MBEDTLS_ERR_CIPHER_BAD_INPUT_DATA if the cipher mode
- *                      does not support esp_padding.
+ *                      does not support padding.
  */
 int esp_mbedtls_cipher_set_padding_mode( mbedtls_cipher_context_t *ctx, mbedtls_cipher_padding_t mode );
 #endif /* MBEDTLS_CIPHER_MODE_WITH_PADDING */
@@ -559,7 +559,7 @@ int esp_mbedtls_cipher_update( mbedtls_cipher_context_t *ctx, const unsigned cha
  *                      parameter verification fails,
  *                      MBEDTLS_ERR_CIPHER_FULL_BLOCK_EXPECTED if decryption
  *                      expected a full block but was not provided one,
- *                      MBEDTLS_ERR_CIPHER_INVALID_PADDING on invalid esp_padding
+ *                      MBEDTLS_ERR_CIPHER_INVALID_PADDING on invalid padding
  *                      while decrypting or a cipher specific esp_error code.
  */
 int esp_mbedtls_cipher_finish( mbedtls_cipher_context_t *ctx,
@@ -618,7 +618,7 @@ int esp_mbedtls_cipher_check_tag( mbedtls_cipher_context_t *ctx,
  *                      MBEDTLS_ERR_CIPHER_BAD_INPUT_DATA, or
  *                      MBEDTLS_ERR_CIPHER_FULL_BLOCK_EXPECTED if decryption
  *                      expected a full block but was not provided one, or
- *                      MBEDTLS_ERR_CIPHER_INVALID_PADDING on invalid esp_padding
+ *                      MBEDTLS_ERR_CIPHER_INVALID_PADDING on invalid padding
  *                      while decrypting, or
  *                      a cipher specific esp_error code.
  */

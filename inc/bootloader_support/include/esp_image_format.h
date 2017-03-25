@@ -87,7 +87,7 @@ typedef struct {
  * if a SPI flash esp_error occurs, ESP_ERR_IMAGE_INVALID if the image header
  * appears invalid.
  */
-esp_err_t esp_image_load_header(uint32_t src_addr, bool log_errors, esp_image_header_t *image_header);
+esp_err_t esp_esp_image_load_header(uint32_t src_addr, bool log_errors, esp_image_header_t *image_header);
 
 /**
  * @brief Read the segment header and data offset of a segment in the image.
@@ -96,18 +96,18 @@ esp_err_t esp_image_load_header(uint32_t src_addr, bool log_errors, esp_image_he
  *
  * @param index Index of the segment to load information for.
  * @param src_addr Base address in flash of the image.
- * @param[in] image_header Pointer to the flash image header, already loaded by @ref esp_image_load_header().
+ * @param[in] image_header Pointer to the flash image header, already loaded by @ref esp_esp_image_load_header().
  * @param log_errors Log errors reading the segment header.
  * @param[out] segment_header Pointer to a segment header structure to be filled with data. If the function fails, contents are undefined.
  * @param[out] segment_data_offset Pointer to the data offset of the segment.
  *
  * @return ESP_OK if segment_header & segment_data_offset were loaded successfully, ESP_ERR_IMAGE_FLASH_FAIL if a SPI flash esp_error occurs, ESP_ERR_IMAGE_INVALID if the image header appears invalid, ESP_ERR_INVALID_ARG if the index is invalid.
  */
-esp_err_t esp_image_load_segment_header(uint8_t index, uint32_t src_addr, const esp_image_header_t *image_header, bool log_errors, esp_image_segment_header_t *segment_header, uint32_t *segment_data_offset);
+esp_err_t esp_esp_image_load_segment_header(uint8_t index, uint32_t src_addr, const esp_image_header_t *image_header, bool log_errors, esp_image_segment_header_t *segment_header, uint32_t *segment_data_offset);
 
 
 /**
- * @brief Non-cryptographically validate app image integrity. On success, length of image is provided to caller.
+ * @brief Non-cryptographically esp_validate app image integrity. On success, length of image is provided to caller.
  *
  * If the image has a secure boot signature appended, the signature is not checked and this length is not included in the
  * output value.
@@ -128,7 +128,7 @@ esp_err_t esp_image_load_segment_header(uint8_t index, uint32_t src_addr, const 
  * @return ESP_OK if image is valid, ESP_FAIL or ESP_ERR_IMAGE_INVALID on errors.
  *
  */
-esp_err_t esp_image_basic_verify(uint32_t src_addr, bool log_errors, uint32_t *length);
+esp_err_t esp_esp_image_basic_verify(uint32_t src_addr, bool log_errors, uint32_t *length);
 
 
 typedef struct {

@@ -92,7 +92,7 @@ typedef _fpos64_t fpos64_t;
  * made them official arguments to setvbuf(), without renaming them.
  * Hence, these ugly _IOxxx names are *supposed* to appear in user code.
  *
- * Although these happen to match their counterparts above, the
+ * Although these happen to esp_match their counterparts above, the
  * implementation does not rely on that (so these could be renumbered).
  */
 #define	_IOFBF	0		/* setvbuf should set fully buffered */

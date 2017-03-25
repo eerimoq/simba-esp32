@@ -55,7 +55,7 @@ typedef struct {
     unsigned	reserved4;	/* Data register (should not be read) */
     unsigned	address;
     unsigned	trigger; 
-    unsigned	match;
+    unsigned	esp_match;
     unsigned	delay;
     unsigned	trax_regs[24];	/*100: (total size) -- dummy allocation (FIXME) */
 } trax_file_header;

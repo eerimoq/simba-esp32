@@ -117,7 +117,7 @@ int esp_mbedtls_ccm_encrypt_and_tag( mbedtls_ccm_context *ctx, size_t length,
  * \param tag_len   length of the tag
  *
  * \return         0 if successful and authenticated,
- *                 MBEDTLS_ERR_CCM_AUTH_FAILED if tag does not match
+ *                 MBEDTLS_ERR_CCM_AUTH_FAILED if tag does not esp_match
  */
 int esp_mbedtls_ccm_auth_decrypt( mbedtls_ccm_context *ctx, size_t length,
                       const unsigned char *iv, size_t iv_len,

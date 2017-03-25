@@ -82,7 +82,7 @@ extern int  trax_display_summary(unsigned id,
 				 unsigned address, 
 				 unsigned delay, 
 				 unsigned trigger, 
-				 unsigned match, 
+				 unsigned esp_match, 
 				 unsigned startaddr,
 				 unsigned endaddr,
 				 const char *prefix);

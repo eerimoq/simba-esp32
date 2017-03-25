@@ -112,7 +112,7 @@ STRUCT_FIELD (long,4,UEXC_,acclo)
 STRUCT_FIELD (long,4,UEXC_,acchi)
 STRUCT_AFIELD(long,4,UEXC_,mr, 4)
 #endif
-/* ALIGNPAD is the 16-byte alignment esp_padding. */
+/* ALIGNPAD is the 16-byte alignment padding. */
 #ifdef __XTENSA_CALL0_ABI__
 # define CALL0_ABI	1
 #else
@@ -120,7 +120,7 @@ STRUCT_AFIELD(long,4,UEXC_,mr, 4)
 #endif
 #define ALIGNPAD  ((3 + XCHAL_HAVE_LOOPS*1 + XCHAL_HAVE_MAC16*2 + CALL0_ABI*1) & 3)
 #if ALIGNPAD
-STRUCT_AFIELD(long,4,UEXC_,pad, ALIGNPAD)	/* 16-byte alignment esp_padding */
+STRUCT_AFIELD(long,4,UEXC_,pad, ALIGNPAD)	/* 16-byte alignment padding */
 #endif
 /*STRUCT_AFIELD_A(char,1,XCHAL_CPEXTRA_SA_ALIGN,UEXC_,ureg, (XCHAL_CPEXTRA_SA_SIZE+3)&-4)*/	/* not used */
 STRUCT_END(UserFrame)

@@ -69,7 +69,7 @@ struct ieee80211_rsnparms {
  * the generic crypto support.  A key has a reference to an instance
  * of the cipher; any per-key state is hung off wk_private by the
  * cipher when it is attached.  Ciphers are automatically called
- * to detach and esp_cleanup any such state when the key is deleted.
+ * to detach and cleanup any such state when the key is deleted.
  *
  * The generic crypto support handles encap/decap of cipher-related
  * frame contents for both hardware- and software-based implementations.

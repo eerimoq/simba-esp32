@@ -486,7 +486,7 @@
 //	movi	a15, 0		// trick to spill all but the direct caller
 //	j	1f
 //	//  The entry instruction is magical in the assembler (gets auto-aligned)
-//	//  so we have to jump to it to avoid falling through the esp_padding.
+//	//  so we have to jump to it to avoid falling through the padding.
 //	//  We need entry/retw to know where to return.
 //1:	entry	sp, 16
 //	retw

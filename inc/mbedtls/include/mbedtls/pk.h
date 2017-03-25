@@ -257,7 +257,7 @@ static inline size_t mbedtls_pk_get_len( const mbedtls_pk_context *ctx )
 int esp_mbedtls_pk_can_do( const mbedtls_pk_context *ctx, mbedtls_pk_type_t type );
 
 /**
- * \brief           Verify signature (including esp_padding if relevant).
+ * \brief           Verify signature (including padding if relevant).
  *
  * \param ctx       PK context to use
  * \param md_alg    Hash algorithm used (see notes)
@@ -271,7 +271,7 @@ int esp_mbedtls_pk_can_do( const mbedtls_pk_context *ctx, mbedtls_pk_type_t type
  *                  valid but its actual length is less than sig_len,
  *                  or a specific esp_error code.
  *
- * \note            For RSA keys, the default esp_padding type is PKCS#1 v1.5.
+ * \note            For RSA keys, the default padding type is PKCS#1 v1.5.
  *                  Use \c esp_mbedtls_pk_verify_ext( MBEDTLS_PK_RSASSA_PSS, ... )
  *                  to verify RSASSA_PSS signatures.
  *
@@ -286,9 +286,9 @@ int esp_mbedtls_pk_verify( mbedtls_pk_context *ctx, mbedtls_md_type_t md_alg,
 
 /**
  * \brief           Verify signature, with options.
- *                  (Includes verification of the esp_padding depending on type.)
+ *                  (Includes verification of the padding depending on type.)
  *
- * \param type      Signature type (inc. possible esp_padding type) to verify
+ * \param type      Signature type (inc. possible padding type) to verify
  * \param options   Pointer to type-specific options, or NULL
  * \param ctx       PK context to use
  * \param md_alg    Hash algorithm used (see notes)
@@ -319,7 +319,7 @@ int esp_mbedtls_pk_verify_ext( mbedtls_pk_type_t type, const void *options,
                    const unsigned char *sig, size_t sig_len );
 
 /**
- * \brief           Make signature, including esp_padding if relevant.
+ * \brief           Make signature, including padding if relevant.
  *
  * \param ctx       PK context to use - must hold a private key
  * \param md_alg    Hash algorithm used (see notes)
@@ -332,7 +332,7 @@ int esp_mbedtls_pk_verify_ext( mbedtls_pk_type_t type, const void *options,
  *
  * \return          0 on success, or a specific esp_error code.
  *
- * \note            For RSA keys, the default esp_padding type is PKCS#1 v1.5.
+ * \note            For RSA keys, the default padding type is PKCS#1 v1.5.
  *                  There is no interface in the PK module to make RSASSA-PSS
  *                  signatures yet.
  *
@@ -348,7 +348,7 @@ int esp_mbedtls_pk_sign( mbedtls_pk_context *ctx, mbedtls_md_type_t md_alg,
              int (*f_rng)(void *, unsigned char *, size_t), void *p_rng );
 
 /**
- * \brief           Decrypt message (including esp_padding if relevant).
+ * \brief           Decrypt message (including padding if relevant).
  *
  * \param ctx       PK context to use - must hold a private key
  * \param input     Input to decrypt
@@ -359,7 +359,7 @@ int esp_mbedtls_pk_sign( mbedtls_pk_context *ctx, mbedtls_md_type_t md_alg,
  * \param f_rng     RNG function
  * \param p_rng     RNG parameter
  *
- * \note            For RSA keys, the default esp_padding type is PKCS#1 v1.5.
+ * \note            For RSA keys, the default padding type is PKCS#1 v1.5.
  *
  * \return          0 on success, or a specific esp_error code.
  */
@@ -369,7 +369,7 @@ int esp_mbedtls_pk_decrypt( mbedtls_pk_context *ctx,
                 int (*f_rng)(void *, unsigned char *, size_t), void *p_rng );
 
 /**
- * \brief           Encrypt message (including esp_padding if relevant).
+ * \brief           Encrypt message (including padding if relevant).
  *
  * \param ctx       PK context to use
  * \param input     Message to encrypt
@@ -380,7 +380,7 @@ int esp_mbedtls_pk_decrypt( mbedtls_pk_context *ctx,
  * \param f_rng     RNG function
  * \param p_rng     RNG parameter
  *
- * \note            For RSA keys, the default esp_padding type is PKCS#1 v1.5.
+ * \note            For RSA keys, the default padding type is PKCS#1 v1.5.
  *
  * \return          0 on success, or a specific esp_error code.
  */
@@ -488,7 +488,7 @@ int esp_mbedtls_pk_parse_public_key( mbedtls_pk_context *ctx,
  *
  * \return          0 if successful, or a specific PK or PEM esp_error code
  */
-int mbedtls_pk_parse_keyfile( mbedtls_pk_context *ctx,
+int esp_mbedtls_pk_parse_keyfile( mbedtls_pk_context *ctx,
                       const char *path, const char *password );
 
 /** \ingroup pk_module */
@@ -507,7 +507,7 @@ int mbedtls_pk_parse_keyfile( mbedtls_pk_context *ctx,
  *
  * \return          0 if successful, or a specific PK or PEM esp_error code
  */
-int mbedtls_pk_parse_public_keyfile( mbedtls_pk_context *ctx, const char *path );
+int esp_mbedtls_pk_parse_public_keyfile( mbedtls_pk_context *ctx, const char *path );
 #endif /* MBEDTLS_FS_IO */
 #endif /* MBEDTLS_PK_PARSE_C */
 
@@ -606,7 +606,7 @@ int esp_mbedtls_pk_write_pubkey( unsigned char **p, unsigned char *start,
  * know you do.
  */
 #if defined(MBEDTLS_FS_IO)
-int mbedtls_pk_load_file( const char *path, unsigned char **buf, size_t *n );
+int esp_mbedtls_pk_load_file( const char *path, unsigned char **buf, size_t *n );
 #endif
 
 #ifdef __cplusplus

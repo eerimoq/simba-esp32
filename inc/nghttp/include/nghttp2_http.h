@@ -35,7 +35,7 @@
 
 /*
  * This function is called when HTTP header field |nv| in |frame| is
- * received for |stream|.  This function will validate |nv| against
+ * received for |stream|.  This function will esp_validate |nv| against
  * the current state of stream.
  *
  * This function returns 0 if it succeeds, or one of the following

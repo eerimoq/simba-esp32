@@ -228,7 +228,7 @@ esp_s_mp_add (mp_int * a, mp_int * b, mp_int * c)
     x = b;
   }
 
-  /* esp_init result */
+  /* init result */
   if (c->alloc < max + 1) {
     if ((res = esp_mp_grow (c, max + 1)) != MP_OKAY) {
       return res;
@@ -307,7 +307,7 @@ esp_s_mp_sub (mp_int * a, mp_int * b, mp_int * c)
   min = b->used;
   max = a->used;
 
-  /* esp_init result */
+  /* init result */
   if (c->alloc < max) {
     if ((res = esp_mp_grow (c, max)) != MP_OKAY) {
       return res;
@@ -365,7 +365,7 @@ esp_s_mp_sub (mp_int * a, mp_int * b, mp_int * c)
 }
 
 
-/* esp_init a new mp_int */
+/* init a new mp_int */
 static int 
 esp_mp_init (mp_int * a)
 {
@@ -783,7 +783,7 @@ mp_invmod_slow (mp_int * a, mp_int * b, mp_int * c)
     return MP_VAL;
   }
 
-  /* esp_init temps */
+  /* init temps */
   if ((res = esp_mp_init_multi(&x, &y, &u, &v, 
                            &A, &B, &C, &D, NULL)) != MP_OKAY) {
      return res;
@@ -1474,11 +1474,11 @@ esp_mp_init_multi(mp_int *mp, ...)
     mp_int* cur_arg = mp;
     va_list args;
 
-    va_start(args, mp);        /* esp_init args to next argument from caller */
+    va_start(args, mp);        /* init args to next argument from caller */
     while (cur_arg != NULL) {
         if (esp_mp_init(cur_arg) != MP_OKAY) {
             /* Oops - esp_error! Back-track and esp_mp_clear what we already
-               succeeded in esp_init-ing, then return esp_error.
+               succeeded in init-ing, then return esp_error.
             */
             va_list clean_args;
             
@@ -1656,7 +1656,7 @@ esp_mp_div(mp_int * a, mp_int * b, mp_int * c, mp_int * d)
     return res;
   }
 	
-  /* esp_init our temps */
+  /* init our temps */
   if ((res = esp_mp_init_multi(&ta, &tb, &tq, &q, NULL) != MP_OKAY)) {
      return res;
   }
@@ -1940,13 +1940,13 @@ esp_s_mp_exptmod (mp_int * G, mp_int * X, mp_int * P, mp_int * Y, int redmode)
     }
 #endif
 
-  /* esp_init M array */
-  /* esp_init first cell */
+  /* init M array */
+  /* init first cell */
   if ((err = esp_mp_init(&M[1])) != MP_OKAY) {
      return err; 
   }
 
-  /* now esp_init the second half of the array */
+  /* now init the second half of the array */
   for (x = 1<<(winsize-1); x < (1 << winsize); x++) {
     if ((err = esp_mp_init(&M[x])) != MP_OKAY) {
       for (y = 1<<(winsize-1); y < x; y++) {
@@ -2528,7 +2528,7 @@ esp_fast_s_mp_mul_digs (mp_int * a, mp_int * b, mp_int * c, int digs)
 }
 
 
-/* esp_init an esp_mp_init for a given size */
+/* init an esp_mp_init for a given size */
 static int 
 esp_mp_init_size (mp_int * a, int size)
 {
@@ -3032,13 +3032,13 @@ mp_exptmod_fast (mp_int * G, mp_int * X, mp_int * P, mp_int * Y, int redmode)
   }
 #endif
 
-  /* esp_init M array */
-  /* esp_init first cell */
+  /* init M array */
+  /* init first cell */
   if ((err = esp_mp_init(&M[1])) != MP_OKAY) {
      return err;
   }
 
-  /* now esp_init the second half of the array */
+  /* now init the second half of the array */
   for (x = 1<<(winsize-1); x < (1 << winsize); x++) {
     if ((err = esp_mp_init(&M[x])) != MP_OKAY) {
       for (y = 1<<(winsize-1); y < x; y++) {

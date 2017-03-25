@@ -1875,8 +1875,8 @@
 #define ctr_drbg_set_prediction_resistance esp_mbedtls_ctr_drbg_set_prediction_resistance
 #define ctr_drbg_set_reseed_interval esp_mbedtls_ctr_drbg_set_reseed_interval
 #define ctr_drbg_update esp_mbedtls_ctr_drbg_update
-#define ctr_drbg_update_seed_file mbedtls_ctr_drbg_update_seed_file
-#define ctr_drbg_write_seed_file mbedtls_ctr_drbg_write_seed_file
+#define ctr_drbg_update_seed_file esp_mbedtls_ctr_drbg_update_seed_file
+#define ctr_drbg_write_seed_file esp_mbedtls_ctr_drbg_write_seed_file
 #define debug_fmt mbedtls_debug_fmt
 #define debug_print_buf mbedtls_debug_print_buf
 #define debug_print_crt mbedtls_debug_print_crt
@@ -1913,7 +1913,7 @@
 #define dhm_make_params esp_mbedtls_dhm_make_params
 #define dhm_make_public esp_mbedtls_dhm_make_public
 #define dhm_parse_dhm esp_mbedtls_dhm_parse_dhm
-#define dhm_parse_dhmfile mbedtls_dhm_parse_dhmfile
+#define dhm_parse_dhmfile esp_mbedtls_dhm_parse_dhmfile
 #define dhm_read_params esp_mbedtls_dhm_read_params
 #define dhm_read_public esp_mbedtls_dhm_read_public
 #define dhm_self_test esp_mbedtls_dhm_self_test
@@ -1991,8 +1991,8 @@
 #define entropy_init esp_mbedtls_entropy_init
 #define entropy_self_test esp_mbedtls_entropy_self_test
 #define entropy_update_manual esp_mbedtls_entropy_update_manual
-#define entropy_update_seed_file mbedtls_entropy_update_seed_file
-#define entropy_write_seed_file mbedtls_entropy_write_seed_file
+#define entropy_update_seed_file esp_mbedtls_entropy_update_seed_file
+#define entropy_write_seed_file esp_mbedtls_entropy_write_seed_file
 #define error_strerror esp_mbedtls_strerror
 #define f_source_ptr mbedtls_entropy_f_source_ptr
 #define gcm_auth_decrypt esp_mbedtls_gcm_auth_decrypt
@@ -2024,8 +2024,8 @@
 #define hmac_drbg_set_prediction_resistance esp_mbedtls_hmac_drbg_set_prediction_resistance
 #define hmac_drbg_set_reseed_interval esp_mbedtls_hmac_drbg_set_reseed_interval
 #define hmac_drbg_update esp_mbedtls_hmac_drbg_update
-#define hmac_drbg_update_seed_file mbedtls_hmac_drbg_update_seed_file
-#define hmac_drbg_write_seed_file mbedtls_hmac_drbg_write_seed_file
+#define hmac_drbg_update_seed_file esp_mbedtls_hmac_drbg_update_seed_file
+#define hmac_drbg_write_seed_file esp_mbedtls_hmac_drbg_write_seed_file
 #define hr_time mbedtls_timing_hr_time
 #define key_exchange_type_t mbedtls_key_exchange_type_t
 #define md esp_mbedtls_md
@@ -2078,7 +2078,7 @@
 #define md5_starts esp_mbedtls_md5_starts
 #define md5_update esp_mbedtls_md5_update
 #define md_context_t mbedtls_md_context_t
-#define md_file mbedtls_md_file
+#define md_file esp_mbedtls_md_file
 #define md_finish esp_mbedtls_md_finish
 #define md_free esp_mbedtls_md_free
 #define md_free_ctx mbedtls_md_free_ctx
@@ -2138,7 +2138,7 @@
 #define mpi_mul_int esp_mbedtls_mpi_mul_int
 #define mpi_mul_mpi esp_mbedtls_mpi_mul_mpi
 #define mpi_read_binary esp_mbedtls_mpi_read_binary
-#define mpi_read_file mbedtls_mpi_read_file
+#define mpi_read_file esp_mbedtls_mpi_read_file
 #define mpi_read_string esp_mbedtls_mpi_read_string
 #define mpi_safe_cond_assign esp_mbedtls_mpi_safe_cond_assign
 #define mpi_safe_cond_swap esp_mbedtls_mpi_safe_cond_swap
@@ -2153,7 +2153,7 @@
 #define mpi_sub_mpi esp_mbedtls_mpi_sub_mpi
 #define mpi_swap esp_mbedtls_mpi_swap
 #define mpi_write_binary esp_mbedtls_mpi_write_binary
-#define mpi_write_file mbedtls_mpi_write_file
+#define mpi_write_file esp_mbedtls_mpi_write_file
 #define mpi_write_string esp_mbedtls_mpi_write_string
 #define net_accept esp_mbedtls_net_accept
 #define net_bind esp_mbedtls_net_bind
@@ -2211,11 +2211,11 @@
 #define pk_init esp_mbedtls_pk_init
 #define pk_init_ctx esp_mbedtls_pk_setup
 #define pk_init_ctx_rsa_alt esp_mbedtls_pk_setup_rsa_alt
-#define pk_load_file mbedtls_pk_load_file
+#define pk_load_file esp_mbedtls_pk_load_file
 #define pk_parse_key esp_mbedtls_pk_parse_key
-#define pk_parse_keyfile mbedtls_pk_parse_keyfile
+#define pk_parse_keyfile esp_mbedtls_pk_parse_keyfile
 #define pk_parse_public_key esp_mbedtls_pk_parse_public_key
-#define pk_parse_public_keyfile mbedtls_pk_parse_public_keyfile
+#define pk_parse_public_keyfile esp_mbedtls_pk_parse_public_keyfile
 #define pk_parse_subpubkey esp_mbedtls_pk_parse_subpubkey
 #define pk_rsa mbedtls_pk_rsa
 #define pk_rsa_alt_decrypt_func mbedtls_pk_rsa_alt_decrypt_func
@@ -2546,7 +2546,7 @@
 #define x509_crl_init esp_mbedtls_x509_crl_init
 #define x509_crl_parse esp_mbedtls_x509_crl_parse
 #define x509_crl_parse_der esp_mbedtls_x509_crl_parse_der
-#define x509_crl_parse_file mbedtls_x509_crl_parse_file
+#define x509_crl_parse_file esp_mbedtls_x509_crl_parse_file
 #define x509_crt mbedtls_x509_crt
 #define x509_crt_check_extended_key_usage esp_mbedtls_x509_crt_check_extended_key_usage
 #define x509_crt_check_key_usage esp_mbedtls_x509_crt_check_key_usage
@@ -2555,8 +2555,8 @@
 #define x509_crt_init esp_mbedtls_x509_crt_init
 #define x509_crt_parse esp_mbedtls_x509_crt_parse
 #define x509_crt_parse_der esp_mbedtls_x509_crt_parse_der
-#define x509_crt_parse_file mbedtls_x509_crt_parse_file
-#define x509_crt_parse_path mbedtls_x509_crt_parse_path
+#define x509_crt_parse_file esp_mbedtls_x509_crt_parse_file
+#define x509_crt_parse_path esp_mbedtls_x509_crt_parse_path
 #define x509_crt_revoked esp_mbedtls_x509_crt_is_revoked
 #define x509_crt_verify esp_mbedtls_x509_crt_verify
 #define x509_csr mbedtls_x509_csr
@@ -2565,7 +2565,7 @@
 #define x509_csr_init esp_mbedtls_x509_csr_init
 #define x509_csr_parse esp_mbedtls_x509_csr_parse
 #define x509_csr_parse_der esp_mbedtls_x509_csr_parse_der
-#define x509_csr_parse_file mbedtls_x509_csr_parse_file
+#define x509_csr_parse_file esp_mbedtls_x509_csr_parse_file
 #define x509_dn_gets esp_mbedtls_x509_dn_gets
 #define x509_get_alg esp_mbedtls_x509_get_alg
 #define x509_get_alg_null esp_mbedtls_x509_get_alg_null

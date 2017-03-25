@@ -15,14 +15,17 @@
 #define __ESP32_FLASH_ENCRYPT_H
 
 #include <stdbool.h>
-#include <esp_err.h>
+#include "esp_attr.h"
+#include "esp_err.h"
 #include "esp_spi_flash.h"
 #include "soc/efuse_reg.h"
 
-/* Support functions for flash encryption features.
-
-   Can be compiled as part of app or bootloader code.
-*/
+/**
+ * @file esp_partition.h
+ * @brief Support functions for flash encryption features
+ *
+ * Can be compiled as part of app or bootloader code.
+ */
 
 /** @brief Is flash encryption currently enabled in hardware?
  *
@@ -30,9 +33,17 @@
  *
  * @return true if flash encryption is enabled.
  */
-static inline bool esp_flash_encryption_enabled(void) {
+static inline /** @cond */ IRAM_ATTR /** @endcond */ bool esp_flash_encryption_enabled(void) {
     uint32_t flash_crypt_cnt = REG_GET_FIELD(EFUSE_BLK0_RDATA0_REG, EFUSE_RD_FLASH_CRYPT_CNT);
-    return __builtin_parity(flash_crypt_cnt) == 1;
+    /* __builtin_parity is in flash, so we calculate parity inline */
+    bool enabled = false;
+    while(flash_crypt_cnt) {
+        if (flash_crypt_cnt & 1) {
+            enabled = !enabled;
+        }
+        flash_crypt_cnt >>= 1;
+    }
+    return enabled;
 }
 
 /* @brief Update on-device flash encryption
@@ -75,7 +86,7 @@ static inline bool esp_flash_encryption_enabled(void) {
  * @return ESP_OK if all operations succeeded, ESP_ERR_INVALID_STATE
  * if a fatal esp_error occured during encryption of all partitions.
  */
-esp_err_t esp_flash_encrypt_check_and_update(void);
+esp_err_t esp_esp_flash_encrypt_check_and_update(void);
 
 
 /** @brief Encrypt-in-place a block of flash sectors
@@ -86,6 +97,6 @@ esp_err_t esp_flash_encrypt_check_and_update(void);
  * @return ESP_OK if all operations succeeded, ESP_ERR_FLASH_OP_FAIL
  * if SPI flash fails, ESP_ERR_FLASH_OP_TIMEOUT if flash times out.
  */
-esp_err_t esp_flash_encrypt_region(uint32_t src_addr, size_t data_length);
+esp_err_t esp_esp_flash_encrypt_region(uint32_t src_addr, size_t data_length);
 
 #endif

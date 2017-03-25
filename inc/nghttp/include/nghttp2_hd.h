@@ -382,7 +382,7 @@ ssize_t esp_nghttp2_hd_decode_length(uint32_t *res, size_t *shift_ptr, int *fina
  * Counts the required bytes to encode |src| with length |len|.
  *
  * This function returns the number of required bytes to encode given
- * data, including esp_padding of prefix of terminal symbol code. This
+ * data, including padding of prefix of terminal symbol code. This
  * function always succeeds.
  */
 size_t esp_nghttp2_hd_huff_encode_count(const uint8_t *src, size_t len);

@@ -847,7 +847,7 @@ typedef struct xSTATIC_LIST
  * writer wants to statically allocate the memory required to create a task then
  * the size of the task object needs to be know.  The StaticTask_t structure
  * below is provided for this purpose.  Its sizes and alignment requirements are
- * guaranteed to match those of the genuine structure, no matter which
+ * guaranteed to esp_match those of the genuine structure, no matter which
  * architecture is being used, and no matter how the values in FreeRTOSConfig.h
  * are set.  Its contents are somewhat obfuscated in the hope users will
  * recognise that it would be unwise to make direct use of the structure members.
@@ -863,8 +863,8 @@ typedef struct xSTATIC_TCB
 	void				*pxDummy6;
 	uint8_t				ucDummy7[ configMAX_TASK_NAME_LEN ];
     UBaseType_t			uxDummyCoreId;
-	#if ( portSTACK_GROWTH > 0 )
-		void			*pxDummy8;
+	#if ( portSTACK_GROWTH > 0 || configENABLE_TASK_SNAPSHOT == 1 )
+		void            *pxDummy8;
 	#endif
 	#if ( portCRITICAL_NESTING_IN_TCB == 1 )
 		UBaseType_t		uxDummy9;
@@ -910,7 +910,7 @@ typedef struct xSTATIC_TCB
  * writer wants to statically allocate the memory required to create a queue
  * then the size of the queue object needs to be know.  The StaticQueue_t
  * structure below is provided for this purpose.  Its sizes and alignment
- * requirements are guaranteed to match those of the genuine structure, no
+ * requirements are guaranteed to esp_match those of the genuine structure, no
  * matter which architecture is being used, and no matter how the values in
  * FreeRTOSConfig.h are set.  Its contents are somewhat obfuscated in the hope
  * users will recognise that it would be unwise to make direct use of the

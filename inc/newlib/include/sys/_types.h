@@ -36,7 +36,7 @@ __extension__ typedef long long _off64_t;
  * so we use _fpos_t instead.
  */
 #ifndef __fpos_t_defined
-typedef long _fpos_t;		/* XXX must match off_t in <sys/types.h> */
+typedef long _fpos_t;		/* XXX must esp_match off_t in <sys/types.h> */
 				/* (and must be `long' for now) */
 #endif
 

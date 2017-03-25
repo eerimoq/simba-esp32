@@ -130,7 +130,7 @@ int esp_mbedtls_gcm_crypt_and_tag( mbedtls_gcm_context *ctx,
  * \param output    buffer for holding the output data
  *
  * \return         0 if successful and authenticated,
- *                 MBEDTLS_ERR_GCM_AUTH_FAILED if tag does not match
+ *                 MBEDTLS_ERR_GCM_AUTH_FAILED if tag does not esp_match
  */
 int esp_mbedtls_gcm_auth_decrypt( mbedtls_gcm_context *ctx,
                       size_t length,

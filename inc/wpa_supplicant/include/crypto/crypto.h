@@ -84,7 +84,7 @@ int esp_sha1_vector(size_t num_elem, const u8 *addr[], const size_t *len,
  *
  * This function implements random number generation specified in NIST FIPS
  * Publication 186-2 for EAP-SIM. This PRF uses a function that is similar to
- * SHA-1, but has different message esp_padding.
+ * SHA-1, but has different message padding.
  */
 int __must_check fips186_2_prf(const u8 *seed, size_t seed_len, u8 *x,
 			       size_t xlen);

@@ -116,7 +116,7 @@ struct timezone;
 #define _kill_r(__reent, __pid, __signal)         kill(__pid, __signal)
 #define _link_r(__reent, __oldpath, __newpath)    link(__oldpath, __newpath)
 #define _lseek_r(__reent, __fdes, __off, __w)     lseek(__fdes, __off, __w)
-#define _mkdir_r(__reent, __path, __m)		  mkdir(__path, __m)
+#define _mkdir_r(__reent, __path, __m)		  esp_mkdir(__path, __m)
 #define _open_r(__reent, __path, __flag, __m)     open(__path, __flag, __m)
 #define _read_r(__reent, __fd, __buff, __cnt)     read(__fd, __buff, __cnt)
 #define _rename_r(__reent, __old, __new)	  rename(__old, __new)

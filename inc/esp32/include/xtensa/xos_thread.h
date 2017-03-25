@@ -844,10 +844,10 @@ xos_start(uint32_t flags);
 
 //-----------------------------------------------------------------------------
 ///
-///  Initialize XOS thread support and create esp_init (main) thread.
+///  Initialize XOS thread support and create init (main) thread.
 ///
 ///  Must be called from main() before calling any other thread function.
-///  This function converts the caller into the 'main' or 'esp_init' thread, and
+///  This function converts the caller into the 'main' or 'init' thread, and
 ///  returns to the caller after completing initialization. 
 ///
 ///  NOTE: This function does not initialize timer/tick support. For timer
@@ -1062,7 +1062,7 @@ xos_thread_wake(XosThread * thread, const char * expected_cause, int32_t wakeval
 
 
 //-----------------------------------------------------------------------------
-//  Function to esp_init C library per-thread and reentrancy support.
+//  Function to init C library per-thread and reentrancy support.
 //-----------------------------------------------------------------------------
 #if XOS_OPT_THREAD_SAFE_CLIB
 void

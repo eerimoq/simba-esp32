@@ -14,6 +14,7 @@
 
 #pragma once
 #include <stdint.h>
+#include <stdbool.h>
 #include "esp_err.h"
 
 #ifdef __cplusplus
@@ -21,12 +22,12 @@ extern "C" {
 #endif
 
 /**
- * @file PHY esp_init parameters and API
+ * @file PHY init parameters and API
  */
 
 
 /**
- * @brief Structure holding PHY esp_init parameters
+ * @brief Structure holding PHY init parameters
  */
 typedef struct {
 	uint8_t param_ver_id;                   /*!< init_data structure version */
@@ -151,32 +152,32 @@ typedef enum {
 } esp_phy_calibration_mode_t;
 
 /**
- * @brief Get PHY esp_init data
+ * @brief Get PHY init data
  *
- * If "Use a partition to store PHY esp_init data" option is set in menuconfig,
- * This function will load PHY esp_init data from a partition. Otherwise,
- * PHY esp_init data will be compiled into the application itself, and this function
- * will return a pointer to PHY esp_init data located in read-only memory (DROM).
+ * If "Use a partition to store PHY init data" option is set in menuconfig,
+ * This function will load PHY init data from a partition. Otherwise,
+ * PHY init data will be compiled into the application itself, and this function
+ * will return a pointer to PHY init data located in read-only memory (DROM).
  *
- * If "Use a partition to store PHY esp_init data" option is enabled, this function
+ * If "Use a partition to store PHY init data" option is enabled, this function
  * may return NULL if the data loaded from flash is not valid.
  *
  * @note Call esp_esp_phy_release_init_data to release the pointer obtained using
  * this function after the call to esp_esp_wifi_init.
  *
- * @return pointer to PHY esp_init data structure
+ * @return pointer to PHY init data structure
  */
 const esp_phy_init_data_t* esp_esp_phy_get_init_data();
 
 /**
- * @brief Release PHY esp_init data
- * @param data  pointer to PHY esp_init data structure obtained from
+ * @brief Release PHY init data
+ * @param data  pointer to PHY init data structure obtained from
  *              esp_esp_phy_get_init_data function
  */
 void esp_esp_phy_release_init_data(const esp_phy_init_data_t* data);
 
 /**
- * @brief Function called by esp_esp_phy_init to load PHY calibration data
+ * @brief Function called by esp_phy_init to load PHY calibration data
  *
  * This is a convenience function which can be used to load PHY calibration
  * data from NVS. Data can be stored to NVS using esp_esp_phy_store_cal_data_to_nvs
@@ -190,9 +191,9 @@ void esp_esp_phy_release_init_data(const esp_phy_init_data_t* data);
  * If "Initialize PHY in startup code" option is set in menuconfig, this
  * function will be used to load calibration data. To provide a different
  * mechanism for loading calibration data, disable
- * "Initialize PHY in startup code" option in menuconfig and call esp_esp_phy_init
- * function from the application. For an example usage of esp_esp_phy_init and
- * this function, see esp_do_phy_init function in cpu_start.c
+ * "Initialize PHY in startup code" option in menuconfig and call esp_phy_init
+ * function from the application. For an example usage of esp_phy_init and
+ * this function, see esp_esp_phy_store_cal_data_to_nvs function in cpu_start.c
  *
  * @param out_cal_data pointer to calibration data structure to be filled with
  *                     loaded data.
@@ -201,17 +202,17 @@ void esp_esp_phy_release_init_data(const esp_phy_init_data_t* data);
 esp_err_t esp_esp_phy_load_cal_data_from_nvs(esp_phy_calibration_data_t* out_cal_data);
 
 /**
- * @brief Function called by esp_esp_phy_init to store PHY calibration data
+ * @brief Function called by esp_phy_init to store PHY calibration data
  *
  * This is a convenience function which can be used to store PHY calibration
- * data to the NVS. Calibration data is returned by esp_esp_phy_init function.
+ * data to the NVS. Calibration data is returned by esp_phy_init function.
  * Data saved using this function to the NVS can later be loaded using
  * esp_esp_phy_store_cal_data_to_nvs function.
  *
  * If "Initialize PHY in startup code" option is set in menuconfig, this
  * function will be used to store calibration data. To provide a different
  * mechanism for storing calibration data, disable
- * "Initialize PHY in startup code" option in menuconfig and call esp_esp_phy_init
+ * "Initialize PHY in startup code" option in menuconfig and call esp_phy_init
  * function from the application.
  *
  * @param cal_data pointer to calibration data which has to be saved.
@@ -220,28 +221,39 @@ esp_err_t esp_esp_phy_load_cal_data_from_nvs(esp_phy_calibration_data_t* out_cal
 esp_err_t esp_esp_phy_store_cal_data_to_nvs(const esp_phy_calibration_data_t* cal_data);
 
 /**
- * @brief Initialize PHY module
+ * @brief Initialize PHY and RF module
  *
- * PHY module should be initialized in order to use WiFi or BT.
- * If "Initialize PHY in startup code" option is set in menuconfig,
- * this function will be called automatically before app_main is called,
- * using parameters obtained from esp_esp_phy_get_init_data.
- *
- * Applications which don't need to enable PHY on every start up should
- * disable this menuconfig option and call esp_esp_phy_init before calling
- * esp_esp_wifi_init or bt_controller_init. See esp_do_phy_init function in
- * cpu_start.c for an example of using this function.
+ * PHY and RF module should be initialized in order to use WiFi or BT.
+ * Now PHY and RF initializing job is done automatically when start WiFi or BT. Users should not
+ * call this API in their application.
  *
  * @param init_data  PHY parameters. Default set of parameters can
  *                   be obtained by calling esp_phy_get_default_init_data
  *                   function.
  * @param mode  Calibration mode (Full, partial, or no calibration)
  * @param[inout] calibration_data
+ * @param is_sleep WiFi wakes up from sleep or not
+ * @return ESP_OK on success.
+ * @return ESP_FAIL on fail.
+ */
+esp_err_t esp_esp_phy_rf_init(const esp_phy_init_data_t* init_data,
+        esp_phy_calibration_mode_t mode, esp_phy_calibration_data_t* calibration_data, bool is_sleep);
+
+/**
+ * @brief De-initialize PHY and RF module
+ *
+ * PHY module should be de-initialized in order to shutdown WiFi or BT.
+ * Now PHY and RF de-initializing job is done automatically when stop WiFi or BT. Users should not
+ * call this API in their application.
+ *
  * @return ESP_OK on success.
  */
-esp_err_t esp_esp_phy_init(const esp_phy_init_data_t* init_data,
-        esp_phy_calibration_mode_t mode, esp_phy_calibration_data_t* calibration_data);
+esp_err_t esp_esp_phy_rf_deinit(void);
 
+/**
+ * @brief Load calibration data from NVS and initialize PHY and RF module
+ */
+void esp_esp_phy_load_cal_and_init(void);
 
 #ifdef __cplusplus
 }

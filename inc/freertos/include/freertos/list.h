@@ -363,7 +363,7 @@ List_t * const pxConstList = ( pxList );													\
 /*
  * Check to see if a list item is within a list.  The list item maintains a
  * "container" pointer that points to the list it is in.  All this macro does
- * is check to see if the container and the list match.
+ * is check to see if the container and the list esp_match.
  *
  * @param pxList The list we want to know if the list item is within.
  * @param pxListItem The list item we want to know if is in the list.

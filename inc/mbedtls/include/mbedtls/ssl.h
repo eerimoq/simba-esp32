@@ -29,6 +29,7 @@
 #include MBEDTLS_CONFIG_FILE
 #endif
 
+#include "platform.h"
 #include "bignum.h"
 #include "ecp.h"
 
@@ -579,7 +580,7 @@ struct mbedtls_ssl_session
  */
 struct mbedtls_ssl_config
 {
-    /* Group items by size (largest first) to minimize esp_padding overhead */
+    /* Group items by size (largest first) to minimize padding overhead */
 
     /*
      * Pointers
@@ -2241,7 +2242,7 @@ const char *esp_mbedtls_ssl_get_version( const mbedtls_ssl_context *ssl );
 
 /**
  * \brief          Return the (maximum) number of bytes added by the record
- *                 layer: header + encryption/MAC overhead (inc. esp_padding)
+ *                 layer: header + encryption/MAC overhead (inc. padding)
  *
  * \param ssl      SSL context
  *

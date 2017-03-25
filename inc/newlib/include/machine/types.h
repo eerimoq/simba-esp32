@@ -3,7 +3,7 @@
 
 /*
  *  The following section is RTEMS specific and is needed to more
- *  closely match the types defined in the BSD machine/types.h.
+ *  closely esp_match the types defined in the BSD machine/types.h.
  *  This is needed to let the RTEMS/BSD TCP/IP stack compile.
  */
 #if defined(__rtems__)

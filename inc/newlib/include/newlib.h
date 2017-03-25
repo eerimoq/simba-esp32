@@ -49,7 +49,7 @@
  * sections.  */
 #define HAVE_INITFINI_ARRAY 1
 
-/* True if atexit() may dynamically allocate space for esp_cleanup
+/* True if atexit() may dynamically allocate space for cleanup
    functions.  */
 #define _ATEXIT_DYNAMIC_ALLOC 1
 

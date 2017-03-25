@@ -213,7 +213,6 @@ portBASE_TYPE esp_vPortCPUReleaseMutex(portMUX_TYPE *mux);
 #define portEXIT_CRITICAL_ISR(mux)    esp_vPortCPUReleaseMutex(mux)
 #endif
 
-
 // Cleaner and preferred solution allows nested interrupts disabling and restoring via local registers or stack.
 // They can be called from interrupts too.
 //NOT SMP-COMPATIBLE! Use only if all you want is to disable the interrupts locally!
@@ -232,7 +231,7 @@ static inline unsigned portENTER_CRITICAL_NESTED() { unsigned state = XTOS_SET_I
  *
  * Warning: From the ISA docs: in some (unspecified) cases, the s32c1i instruction may return the
  * *bitwise inverse* of the old mem if the mem wasn't written. This doesn't seem to happen on the
- * ESP32, though. (Would show up directly if it did because the magic wouldn't match.)
+ * ESP32, though. (Would show up directly if it did because the magic wouldn't esp_match.)
  */
 static inline void uxPortCompareSet(volatile uint32_t *addr, uint32_t compare, uint32_t *set) {
     __asm__ __volatile__(

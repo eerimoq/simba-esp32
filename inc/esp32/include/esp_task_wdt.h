@@ -39,7 +39,7 @@ This uses the TIMERG0 WDT.
 
 
 /**
-  * @brief  Initialize the task watchdog. This is called in the esp_init code, if the
+  * @brief  Initialize the task watchdog. This is called in the init code, if the
   *         task watchdog is enabled in menuconfig.
   *
   */

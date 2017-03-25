@@ -106,7 +106,7 @@ typedef void * QueueSetMemberHandle_t;
 #define	queueSEND_TO_FRONT		( ( BaseType_t ) 1 )
 #define queueOVERWRITE			( ( BaseType_t ) 2 )
 
-/* For internal use only.  These definitions *must* match those in queue.c. */
+/* For internal use only.  These definitions *must* esp_match those in queue.c. */
 #define queueQUEUE_TYPE_BASE				( ( uint8_t ) 0U )
 #define queueQUEUE_TYPE_SET					( ( uint8_t ) 0U )
 #define queueQUEUE_TYPE_MUTEX 				( ( uint8_t ) 1U )

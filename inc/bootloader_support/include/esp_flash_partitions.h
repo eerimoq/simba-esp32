@@ -34,6 +34,6 @@
  *
  * @return ESP_OK on success, ESP_ERR_INVALID_STATE if partition table is not valid.
  */
-esp_err_t esp_partition_table_basic_verify(const esp_partition_info_t *partition_table, bool log_errors, int *num_partitions);
+esp_err_t esp_esp_partition_table_basic_verify(const esp_partition_info_t *partition_table, bool log_errors, int *num_partitions);
 
 #endif

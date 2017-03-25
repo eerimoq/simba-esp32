@@ -87,13 +87,13 @@ int mbedtls_pkcs11_priv_key_bind( mbedtls_pkcs11_context *priv_key,
  * Free the contents of the given private key context. Note that the structure
  * itself is not freed.
  *
- * \param priv_key      Private key structure to esp_cleanup
+ * \param priv_key      Private key structure to cleanup
  */
 void mbedtls_pkcs11_priv_key_free( mbedtls_pkcs11_context *priv_key );
 
 /**
  * \brief          Do an RSA private key decrypt, then remove the message
- *                 esp_padding
+ *                 padding
  *
  * \param ctx      PKCS #11 context
  * \param mode     must be MBEDTLS_RSA_PRIVATE, for compatibility with rsa.c's signature

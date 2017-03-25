@@ -151,7 +151,7 @@ _READ_WRITE_RETURN_TYPE _EXFUN(read, (int __fd, void *__buf, size_t __nbyte ));
 int	_EXFUN(rresvport, (int *__alport));
 int	_EXFUN(revoke, (char *__path));
 #endif
-int     _EXFUN(rmdir, (const char *__path ));
+int     _EXFUN(esp_rmdir, (const char *__path ));
 #if defined(__CYGWIN__)
 int	_EXFUN(ruserok, (const char *rhost, int superuser, const char *ruser, const char *luser));
 #endif

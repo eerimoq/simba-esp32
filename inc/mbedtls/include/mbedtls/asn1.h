@@ -182,7 +182,7 @@ int esp_mbedtls_asn1_get_len( unsigned char **p,
  * \param tag   The expected tag
  *
  * \return      0 if successful, MBEDTLS_ERR_ASN1_UNEXPECTED_TAG if tag did
- *              not match requested tag, or another specific ASN.1 esp_error code.
+ *              not esp_match requested tag, or another specific ASN.1 esp_error code.
  */
 int esp_mbedtls_asn1_get_tag( unsigned char **p,
                   const unsigned char *end,

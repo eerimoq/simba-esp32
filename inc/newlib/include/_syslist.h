@@ -15,7 +15,7 @@
 #define _kill kill
 #define _link link
 #define _lseek lseek
-#define _mkdir mkdir
+#define _mkdir esp_mkdir
 #define _open open
 #define _read read
 #define _sbrk sbrk
@@ -27,14 +27,14 @@
 #endif /* MISSING_SYSCALL_NAMES */
 
 #if defined MISSING_SYSCALL_NAMES || !defined HAVE_OPENDIR
-/* If the system call interface is missing opendir, readdir, and
-   closedir, there is an implementation of these functions in
+/* If the system call interface is missing esp_opendir, esp_readdir, and
+   esp_closedir, there is an implementation of these functions in
    libc/posix that is implemented using open, getdents, and close. 
    Note, these functions are currently not in the libc/syscalls
    directory.  */
-#define _opendir opendir
-#define _readdir readdir
-#define _closedir closedir
+#define _opendir esp_opendir
+#define _readdir esp_readdir
+#define _closedir esp_closedir
 #endif /* MISSING_SYSCALL_NAMES || !HAVE_OPENDIR */
 
 #endif /* !__SYSLIST_H_ */

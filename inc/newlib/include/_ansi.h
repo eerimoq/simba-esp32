@@ -105,7 +105,7 @@
 
 /*  The traditional meaning of 'extern inline' for GCC is not
   to emit the function body unless the address is explicitly
-  taken.  However this behaviour is changing to match the C99
+  taken.  However this behaviour is changing to esp_match the C99
   standard, which uses 'extern inline' to indicate that the
   function body *must* be emitted.  Likewise, a function declared
   without either 'extern' or 'static' defaults to extern linkage

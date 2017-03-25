@@ -58,7 +58,7 @@ static inline bool esp_secure_boot_enabled(void) {
  * secure boot to be enabled cleanly. ESP_OK if secure boot
  * is enabled on this chip from now on.
  */
-esp_err_t esp_secure_boot_permanently_enable(void);
+esp_err_t esp_esp_secure_boot_permanently_enable(void);
 
 /** @brief Verify the secure boot signature (determinstic ECDSA w/ SHA256) appended to some binary data in flash.
  *
@@ -72,7 +72,7 @@ esp_err_t esp_secure_boot_permanently_enable(void);
  * @return ESP_OK if signature is valid, ESP_ERR_INVALID_STATE if
  * signature fails, ESP_FAIL for other failures (ie can't read flash).
  */
-esp_err_t esp_secure_boot_verify_signature(uint32_t src_addr, uint32_t length);
+esp_err_t esp_esp_secure_boot_verify_signature(uint32_t src_addr, uint32_t length);
 
 /** @brief Secure boot verification block, on-flash data format. */
 typedef struct {

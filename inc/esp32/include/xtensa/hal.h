@@ -499,7 +499,7 @@ extern void	esp_xthal_clear_regcached_code( void );
 #define XTHAL_AMB_EXCEPTION	0	/* 001 E EX fls: EXception        none
 					   exception on any access (aka "illegal") */
 #define XTHAL_AMB_HITCACHE	1	/* 002 C CH fls: use Cache on Hit ~(I CI)
-					   [or H HC]  way from tag match;
+					   [or H HC]  way from tag esp_match;
 					   [or U UC] (ISA: same except Isolate case) */
 #define XTHAL_AMB_ALLOCATE	2	/* 004 A AL fl?: ALlocate         none
 					   [or esp_F FI fill] refill cache on miss, way from LRU
@@ -657,7 +657,7 @@ extern void      esp_xthal_window_spill( void );
 			Optional/Custom Processor State
   ----------------------------------------------------------------------*/
 
-/* validate & invalidate the TIE register file */
+/* esp_validate & invalidate the TIE register file */
 extern void esp_xthal_validate_cp(int);
 extern void esp_xthal_invalidate_cp(int);
 

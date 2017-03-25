@@ -61,13 +61,13 @@
 #define EXCCAUSE_INSTR_ADDR_ERROR	14	/* PIF Address Error on Instruction Fetch (RB-200x and later) */
 #define EXCCAUSE_LOAD_STORE_ADDR_ERROR	15	/* PIF Address Error on Load or Store (RB-200x and later) */
 #define EXCCAUSE_ITLB_MISS		16	/* ITLB Miss (no ITLB entry matches, hw refill also missed) */
-#define EXCCAUSE_ITLB_MULTIHIT		17	/* ITLB Multihit (multiple ITLB entries match) */
+#define EXCCAUSE_ITLB_MULTIHIT		17	/* ITLB Multihit (multiple ITLB entries esp_match) */
 #define EXCCAUSE_INSTR_RING		18	/* Ring Privilege Violation on Instruction Fetch */
 /* Reserved				19 */	/* Size Restriction on IFetch (not implemented) */
 #define EXCCAUSE_INSTR_PROHIBITED	20	/* Cache Attribute does not allow Instruction Fetch */
 /* Reserved				21..23 */
 #define EXCCAUSE_DTLB_MISS		24	/* DTLB Miss (no DTLB entry matches, hw refill also missed) */
-#define EXCCAUSE_DTLB_MULTIHIT		25	/* DTLB Multihit (multiple DTLB entries match) */
+#define EXCCAUSE_DTLB_MULTIHIT		25	/* DTLB Multihit (multiple DTLB entries esp_match) */
 #define EXCCAUSE_LOAD_STORE_RING	26	/* Ring Privilege Violation on Load or Store */
 /* Reserved				27 */	/* Size Restriction on Load/Store (not implemented) */
 #define EXCCAUSE_LOAD_PROHIBITED	28	/* Cache Attribute does not allow Load */
@@ -129,9 +129,9 @@
 #define DEBUGCAUSE_BREAK_SHIFT		3
 #define DEBUGCAUSE_BREAK_MASK		0x08	/* BREAK instruction */
 #define DEBUGCAUSE_DBREAK_SHIFT		2
-#define DEBUGCAUSE_DBREAK_MASK		0x04	/* DBREAK match */
+#define DEBUGCAUSE_DBREAK_MASK		0x04	/* DBREAK esp_match */
 #define DEBUGCAUSE_IBREAK_SHIFT		1
-#define DEBUGCAUSE_IBREAK_MASK		0x02	/* IBREAK match */
+#define DEBUGCAUSE_IBREAK_MASK		0x02	/* IBREAK esp_match */
 #define DEBUGCAUSE_ICOUNT_SHIFT		0
 #define DEBUGCAUSE_ICOUNT_MASK		0x01	/* ICOUNT would increment to zero */
 
