@@ -8,6 +8,10 @@ import StringIO
 
 ignored_symbols = [
     'wifi_station_get_reconnect_policy'
+    'wifi_station_get_reconnect_policy',
+    'abort',
+    'new',
+    'delete'
 ]
 
 ignored_libraries = [
